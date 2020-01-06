@@ -1,0 +1,11 @@
+<header *ngIf="isAuthenticated">
+    <nav>
+        <ul>
+            <li><a routerLink='/todo-list'>My ToDo List</a></li>
+            <li><a routerLink="/profile">My Profile</a></li>
+            <li><a href="#" (click)="onLogout()">Logout</a></li>
+            <div class="clearfix"></div>
+        </ul>
+    </nav>
+    <div class="clearfix"></div>
+</header>
