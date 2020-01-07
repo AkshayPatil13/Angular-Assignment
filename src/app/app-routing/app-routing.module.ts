@@ -4,7 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignupComponent } from '../signup/signup.component';
 import { LoginComponent } from '../login/login.component';
 import { ProfileComponent } from '../profile/profile.component';
-import { TodoListComponent } from '../todo-list/todo-list.component';
+import { TodoListComponent } from '../todos/todo-list/todo-list.component';
+import { AddTodoComponent } from '../todos/add-todo/add-todo.component';
+import { TodosComponent } from '../todos/todos.component';
 
 
 const appRoutes: Routes = [
@@ -12,7 +14,10 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'todo-list', component: TodoListComponent }
+  { path: 'todos', component: TodosComponent, children : [
+    {path: 'add-todo', component: AddTodoComponent},
+    {path: 'todo-list', component: TodoListComponent}
+  ]},
 ];
 @NgModule({
   declarations: [],

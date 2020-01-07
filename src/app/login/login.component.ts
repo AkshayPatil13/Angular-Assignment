@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     this.userService.checkLoggedInUser();
     this.userService.userAuth.subscribe((userData) => {
       if (userData) {
-        this.router.navigate(['/todo-list']);
+        this.router.navigate(['/todos']);
       }
     })
     this.loginForm = new FormGroup({

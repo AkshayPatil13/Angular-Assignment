@@ -6,7 +6,7 @@ export class Todo {
         public isPublic: boolean,
         public category: string,
         public description: string,
-        public status: string = 'pending',
-        public id: string = '_' + Math.random().toString(36).substr(2, 9)
+        public status: string,
+        public id: string
     ) { }
 }

@@ -9,8 +9,11 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
-import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodoListComponent } from './todos/todo-list/todo-list.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { AddTodoComponent } from './todos/add-todo/add-todo.component';
+import { TodosComponent } from './todos/todos.component';
+import { TodoItemComponent } from './todos/todo-list/todo-item/todo-item.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     LoadingSpinnerComponent,
     LoginComponent,
     ProfileComponent,
-    TodoListComponent
+    TodoListComponent,
+    AddTodoComponent,
+    TodosComponent,
+    TodoItemComponent
   ],
   imports: [
     BrowserModule,

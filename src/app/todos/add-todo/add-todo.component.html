@@ -1,0 +1,27 @@
+<div class="right-section">
+
+    <form id="addToDo" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+
+        <input type="text" placeholder="Title.." id="toDoTitle" formControlName="title"><br>
+        <label>Start Date : </label> <input id="startDate" type="date" formControlName="startDate"><br>
+        <label>Due Date : </label> <input id="dueDate" type="date" formControlName="dueDate"><br>
+
+        <div class="public">
+            <label>is Public :</label>
+            <input type="checkbox" id="isToDoPublic" formControlName="isPublic">
+        </div>
+
+        <label>Categories :</label>
+        <input type="radio" name="categories" value="Home" formControlName="categories">Home
+        <input type="radio" name="categories" value="Personal" formControlName="categories">Personal
+        <input type="radio" name="categories" value="Office" formControlName="categories">Office
+
+        <textarea id="description" rows="10" placeholder="Add description here..." formControlName="description"></textarea><br>
+
+        <button type="submit" id="add" class="add" [disabled]="!todoForm.valid" *ngIf="isEditMode == false">Add</button>
+        <button class="update-data" type="button" id="save" *ngIf="isEditMode == true">Save Changes</button>
+        <button type="reset" class="reset">Reset</button>
+    </form>
+</div>
+
+<div class="clearfix"></div>

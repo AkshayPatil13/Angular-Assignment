@@ -52,11 +52,15 @@
             </tr>
         </thead>
 
-        <tbody id="todoBody"></tbody>
+        <tbody id="todoBody">
+            <tr app-todo-item [todo]="todo" *ngFor="let todo of todos">
+                <!-- <app-todo-item [todo]="todo"></app-todo-item> -->
+            </tr>
+        </tbody>
     </table>
 </div>
 
-<div class="right-section">
+<!-- <div class="right-section">
 
     <form id="addToDo">
 
@@ -80,6 +84,6 @@
         <button class="update-data" type="button" id="save">Save Changes</button>
         <button type="reset" class="reset">Reset</button>
     </form>
-</div>
+</div> -->
 
 <div class="clearfix"></div>
