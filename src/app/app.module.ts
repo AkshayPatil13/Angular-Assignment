@@ -17,6 +17,7 @@ import { TodoItemComponent } from './todos/todo-list/todo-item/todo-item.compone
 import { StatusPipePipe } from './todos/filters/status-pipe.pipe';
 import { CategoriesFilterPipe } from './todos/filters/categories-filter.pipe';
 import { DateFilterPipe } from './todos/filters/date-filter.pipe';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { DateFilterPipe } from './todos/filters/date-filter.pipe';
     TodoItemComponent,
     StatusPipePipe,
     CategoriesFilterPipe,
-    DateFilterPipe
+    DateFilterPipe,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

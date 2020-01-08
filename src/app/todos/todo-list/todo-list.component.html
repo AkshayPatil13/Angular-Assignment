@@ -26,20 +26,20 @@
         <input type="date" id="filterStartDate" [(ngModel)]="startDate">
 
         <label>To :</label>
-        <input type="date" id="filterDueDate" [(ngModel)]="dueDate" >
+        <input type="date" id="filterDueDate" [(ngModel)]="dueDate">
 
         <!-- <button type="button" id="filterByDate" class="search">Search</button> -->
     </div>
 
     <div id="operations">
-        <button type="button" id="edit" class="edit">Edit</button>
+        <button type="button" id="edit" class="edit" (click)="onEditTodo()">Edit</button>
         <button type="button" id="delete" class="delete" (click)="onDeleteTodo()">Delete</button>
         <button type="button" id="markAsDone" class="mark-as-done" (click)="onStatusChange()">Mark as Done</button>
         <button type="button" class="show-todos" (click)="showAllTodos()">Show todos</button>
     </div>
 
-    <h1 id="noDataFound">No Data Found..!!</h1>
-    <table class="todo-table" id="todoTable">
+    <h1 id="noDataFound" *ngIf="todos.length == 0">No Data Found..!!</h1>
+    <table class="todo-table" id="todoTable" *ngIf="todos.length > 0">
         <thead>
             <tr>
                 <th>Select</th>
@@ -54,7 +54,7 @@
         </thead>
 
         <tbody id="todoBody">
-            <tr app-todo-item [todo]="todo" 
+            <tr app-todo-item [todo]="todo"
                 *ngFor="let todo of todos | categoriesFilter:filterCategory | statusFilter:filterStatus | dateFilter:startDate:dueDate let i=index"
                 (todoSelected)="todoSelected($event)">
                 <!-- <app-todo-item [todo]="todo"></app-todo-item> -->

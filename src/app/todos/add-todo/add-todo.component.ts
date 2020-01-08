@@ -12,7 +12,7 @@ export class AddTodoComponent implements OnInit {
   isEditMode: boolean = false;
   todoForm: FormGroup;
   constructor(private todoService: TodoService,
-              private router: Router) { }
+    private router: Router) { }
 
   ngOnInit() {
     this.todoForm = new FormGroup({
@@ -25,16 +25,44 @@ export class AddTodoComponent implements OnInit {
     })
   }
 
-  onSubmit(){
-    this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Yes' : 'No';
-    this.todoService.addTodo({...this.todoForm.value, isPublic: this.todoForm.value.isPublic});
-    let todolist = this.todoService.getTodos();
-    console.log(todolist);
-    this.todoForm.reset();
+  validateTodoData() {
+    let tempStartDate = new Date(this.todoForm.value.startDate);
+    let tempDueDate = new Date(this.todoForm.value.dueDate);
+    if (tempStartDate.getTime() > tempDueDate.getTime()) {
+      document.getElementById('formError').innerHTML = "Due date should come after the start date..!!";
+      return false;
+    }
+    if ((this.todoForm.value.title).trim() == "") {
+      document.getElementById('formError').innerHTML = "Please enter Title for ToDo Item..!!";
+      return false;
+    }
+    if ((this.todoForm.value.description).trim() == "") {
+      document.getElementById('formError').innerHTML = "Please enter the description for ToDo Item..!!";
+      return false;
+    }
+    if (this.todoForm.value.startDate == "") {
+      document.getElementById('formError').innerHTML = "Please set the start date..!!";
+      return false;
+    }
+    if (this.todoForm.value.dueDate == "") {
+      document.getElementById('formError').innerHTML = "Please set the due date..!!";
+      return false;
+    }
+    return true;
+  }
+  onSubmit() {
+    let allowInsertion = this.validateTodoData();
+    if (allowInsertion == true) {
+      document.getElementById('formError').innerHTML = '';
+      this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Yes' : 'No';
+      this.todoService.addTodo({ ...this.todoForm.value, isPublic: this.todoForm.value.isPublic });
+      let todolist = this.todoService.getTodos();
+      console.log(todolist);
+      this.todoForm.reset();
+    }
     // this.router.navigate(['/todo-list']);
-    
   }
 
-  
+
 
 }

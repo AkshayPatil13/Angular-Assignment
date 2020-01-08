@@ -60,3 +60,9 @@ input[type='radio']{
 .btn-style:hover{
     background-color: #45a049;
 }
+
+button:disabled,
+button[disabled]{
+  opacity: 0.65;
+  cursor: not-allowed;
+}

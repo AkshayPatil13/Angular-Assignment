@@ -55,19 +55,32 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  onEditProfile() {
-    if (!this.editProfile.valid) {
-      this.formError = true;
+  validateProfileData() {
+    if ((this.editProfile.value.firstName).trim() == "" ||
+      (this.editProfile.value.lastName).trim() == "" ||
+      (this.editProfile.value.address).trim() == "" ||
+      this.editProfile.value.gender == null) {
+      alert('Please fill out all the Fields..!!');
       return false;
     }
+    return true;
+  }
 
-    this.isFetching = true;
-    this.editProfile.value.profileImage = this.imageUrl;
-    this.userService.updateUser(this.editProfile.value).subscribe((users) => {
-      this.userService.usersChanged.next(users);
-      this.isFetching = false;
-      return this.router.navigate(['/todos']);
-    });
+  onEditProfile() {
+    // if (!this.editProfile.valid) {
+    //   this.formError = true;
+    //   return false;
+    // }
+    let allowEdit = this.validateProfileData();
+    if (allowEdit == true) {
+      this.isFetching = true;
+      this.editProfile.value.profileImage = this.imageUrl;
+      this.userService.updateUser(this.editProfile.value).subscribe((users) => {
+        this.userService.usersChanged.next(users);
+        this.isFetching = false;
+        return this.router.navigate(['/todos']);
+      });
+    }
   }
 
 }

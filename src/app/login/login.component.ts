@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         this.errorMessage = '';
         setTimeout(() => {
           this.isFetching = false;
-          this.router.navigate(['/todo-list']);
+          this.router.navigate(['/todos']);
         }, 1000);
       }, (errorMessage) => {
         this.isFetching = false;

@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css']
 })
-export class TodoListComponent implements OnInit, DoCheck{
+export class TodoListComponent implements OnInit, DoCheck {
   todos: Todo[] = [];
   selectedTodos: string[] = [];
   filterStatus: string = '';
@@ -18,48 +18,44 @@ export class TodoListComponent implements OnInit, DoCheck{
   todosSubscription: Subscription;
   constructor(private todoService: TodoService) { }
 
-  ngOnInit() { 
-   
+  ngOnInit() {
+
   }
-  ngDoCheck(){
-    this.todoService.todosChanged.subscribe((todos:Todo[]) => {
+  ngDoCheck() {
+    this.todoService.todosChanged.subscribe((todos: Todo[]) => {
       this.todos = todos;
     });
     this.todos = this.todoService.getTodos();
     // console.log(this.todos);
   }
 
-  todoSelected(todoId: string){
+  todoSelected(todoId: string) {
     let flag: boolean = false;
-    for(let i=0;i<this.selectedTodos.length;i++){
-      if(this.selectedTodos[i] === todoId){
+    for (let i = 0; i < this.selectedTodos.length; i++) {
+      if (this.selectedTodos[i] === todoId) {
         flag = true;
-        this.selectedTodos.splice(i,1);
+        this.selectedTodos.splice(i, 1);
         break;
       }
     }
-    if(flag === false){
+    if (flag === false) {
       this.selectedTodos.push(todoId);
     }
 
     console.log(this.selectedTodos);
   }
 
-  RemoveChecks(){
-    let checkbox: any = document.querySelectorAll('input[type=checkbox]');
-    for(let i=0;i<checkbox.length;i++){
-      checkbox[i].checked = false;
-    }
-    console.log(checkbox);
+  onEditTodo() {
+
   }
 
-  onDeleteTodo(){
+  onDeleteTodo() {
     this.todoService.deleteTodos(this.selectedTodos);
     this.selectedTodos = [];
-    
+
   }
 
-  onStatusChange(){
+  onStatusChange() {
     this.todoService.updateToDoStatus(this.selectedTodos);
     this.selectedTodos = [];
     this.RemoveChecks();
@@ -74,18 +70,26 @@ export class TodoListComponent implements OnInit, DoCheck{
   //   document.getElementById('filterByDate').style.display = "none";
   // }
 
-  showFurtherFilters(){
-    let filterType:any = document.getElementById('filterBy');
-    let filterName:any = filterType.options[filterType.selectedIndex].value;
+  RemoveChecks() {
+    let checkbox: any = document.querySelectorAll('input[type=checkbox]');
+    for (let i = 0; i < checkbox.length; i++) {
+      checkbox[i].checked = false;
+    }
+    console.log(checkbox);
+  }
+
+  showFurtherFilters() {
+    let filterType: any = document.getElementById('filterBy');
+    let filterName: any = filterType.options[filterType.selectedIndex].value;
 
     if (filterName == "Categories") {
-        this.setFilterValues("inline-block", "none", "none");
+      this.setFilterValues("inline-block", "none", "none");
     }
     else if (filterName == "Status") {
-        this.setFilterValues("none", "inline-block", "none");
+      this.setFilterValues("none", "inline-block", "none");
     }
     else if (filterName == "Date") {
-        this.setFilterValues("none", "none", "inline-block");
+      this.setFilterValues("none", "none", "inline-block");
     }
   }
 

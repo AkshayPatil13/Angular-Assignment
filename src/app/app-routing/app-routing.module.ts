@@ -7,6 +7,7 @@ import { ProfileComponent } from '../profile/profile.component';
 import { TodoListComponent } from '../todos/todo-list/todo-list.component';
 import { AddTodoComponent } from '../todos/add-todo/add-todo.component';
 import { TodosComponent } from '../todos/todos.component';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 
 const appRoutes: Routes = [
@@ -14,10 +15,13 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'todos', component: TodosComponent, children : [
-    {path: 'add-todo', component: AddTodoComponent},
-    // {path: 'todo-list', component: TodoListComponent}
-  ]},
+  {
+    path: 'todos', component: TodosComponent, children: [
+      { path: 'add-todo', component: AddTodoComponent },
+      // {path: 'todo-list', component: TodoListComponent}
+    ]
+  },
+  { path: '**', component: PageNotFoundComponent }
 ];
 @NgModule({
   declarations: [],
