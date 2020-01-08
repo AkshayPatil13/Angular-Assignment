@@ -14,6 +14,9 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AddTodoComponent } from './todos/add-todo/add-todo.component';
 import { TodosComponent } from './todos/todos.component';
 import { TodoItemComponent } from './todos/todo-list/todo-item/todo-item.component';
+import { StatusPipePipe } from './todos/filters/status-pipe.pipe';
+import { CategoriesFilterPipe } from './todos/filters/categories-filter.pipe';
+import { DateFilterPipe } from './todos/filters/date-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { TodoItemComponent } from './todos/todo-list/todo-item/todo-item.compone
     TodoListComponent,
     AddTodoComponent,
     TodosComponent,
-    TodoItemComponent
+    TodoItemComponent,
+    StatusPipePipe,
+    CategoriesFilterPipe,
+    DateFilterPipe
   ],
   imports: [
     BrowserModule,

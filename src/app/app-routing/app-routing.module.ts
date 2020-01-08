@@ -16,7 +16,7 @@ const appRoutes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'todos', component: TodosComponent, children : [
     {path: 'add-todo', component: AddTodoComponent},
-    {path: 'todo-list', component: TodoListComponent}
+    // {path: 'todo-list', component: TodoListComponent}
   ]},
 ];
 @NgModule({

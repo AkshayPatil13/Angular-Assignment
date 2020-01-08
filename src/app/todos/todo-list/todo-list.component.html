@@ -1,20 +1,20 @@
 <div class="left-section">
 
     <label>Filter By :</label>
-    <select class="filter" name="filters" id="filterBy">
+    <select class="filter" name="filters" id="filterBy" (change)="showFurtherFilters()">
         <option value="select">Select</option>
         <option value="Categories">Categories</option>
         <option value="Status">Status</option>
         <option value="Date">Date</option>
     </select>
 
-    <select name="filters" id="filterByStatus">
+    <select name="filters" id="filterByStatus" [(ngModel)]="filterStatus">
         <option value="select" selected>Select</option>
         <option value="Done">isDone</option>
         <option value="pending">isPending</option>
     </select>
 
-    <select name="filters" id="filterByCategories">
+    <select name="filters" id="filterByCategories" [(ngModel)]="filterCategory">
         <option value="select" selected>Select</option>
         <option value="Home">Home</option>
         <option value="Personal">Personal</option>
@@ -23,18 +23,19 @@
 
     <div class="date-filters" id="filterByDate">
         <label>From :</label>
-        <input type="date" id="filterStartDate">
+        <input type="date" id="filterStartDate" [(ngModel)]="startDate">
 
         <label>To :</label>
-        <input type="date" id="filterDueDate">
+        <input type="date" id="filterDueDate" [(ngModel)]="dueDate" >
 
-        <button type="button" id="filterByDate" class="search">Search</button>
+        <!-- <button type="button" id="filterByDate" class="search">Search</button> -->
     </div>
 
     <div id="operations">
         <button type="button" id="edit" class="edit">Edit</button>
-        <button type="button" id="delete" class="delete">Delete</button>
-        <button type="button" id="markAsDone" class="mark-as-done">Mark as Done</button>
+        <button type="button" id="delete" class="delete" (click)="onDeleteTodo()">Delete</button>
+        <button type="button" id="markAsDone" class="mark-as-done" (click)="onStatusChange()">Mark as Done</button>
+        <button type="button" class="show-todos" (click)="showAllTodos()">Show todos</button>
     </div>
 
     <h1 id="noDataFound">No Data Found..!!</h1>
@@ -53,7 +54,9 @@
         </thead>
 
         <tbody id="todoBody">
-            <tr app-todo-item [todo]="todo" *ngFor="let todo of todos">
+            <tr app-todo-item [todo]="todo" 
+                *ngFor="let todo of todos | categoriesFilter:filterCategory | statusFilter:filterStatus | dateFilter:startDate:dueDate let i=index"
+                (todoSelected)="todoSelected($event)">
                 <!-- <app-todo-item [todo]="todo"></app-todo-item> -->
             </tr>
         </tbody>

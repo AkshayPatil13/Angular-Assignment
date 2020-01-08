@@ -6,6 +6,8 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class TodoService {
+  constructor() { }
+  
   todos: Todo[] = [];
   todosChanged = new Subject<Todo[]>();
 
@@ -18,8 +20,39 @@ export class TodoService {
     this.todosChanged.next(this.todos.slice());
   }
 
+  // deleteTodos(id: string[]){
+  //   let updatedTodoList = this.todos.filter(function(todo){
+  //     return !id.includes(todo.id)
+  //   });
+  //   this.todos = updatedTodoList;
+  //   this.todosChanged.next(this.todos.slice());
+  // }
+
+  deleteTodos(todoId: string[]){
+    for(let i=0;i<todoId.length;i++){
+      for(let j=0;j<this.todos.length;j++){
+        if(todoId[i] === this.todos[j].id ){
+          this.todos.splice(j,1);
+        }
+      }
+    }
+   
+    this.todosChanged.next(this.todos.slice());
+  }
+
+  updateToDoStatus(todoId: string[]){
+    for(let i=0;i<todoId.length;i++){
+      for(let j=0;j<this.todos.length;j++){
+        if(todoId[i] === this.todos[j].id ){
+          this.todos[j].status = 'Done';
+        }
+      }
+    }
+    this.todosChanged.next(this.todos.slice());
+  }
+
   getTodos(){
     return this.todos.slice();
   }
-  constructor() { }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TodoService } from 'src/app/services/todo.service';
 import { Router } from '@angular/router';
@@ -19,14 +19,15 @@ export class AddTodoComponent implements OnInit {
       'title': new FormControl(null, Validators.required),
       'startDate': new FormControl(null, Validators.required),
       'dueDate': new FormControl(null, Validators.required),
-      'isPublic': new FormControl(null, Validators.required),
+      'isPublic': new FormControl(null),
       'categories': new FormControl(null, Validators.required),
       'description': new FormControl(null, Validators.required)
     })
   }
 
   onSubmit(){
-    this.todoService.addTodo(this.todoForm.value);
+    this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Yes' : 'No';
+    this.todoService.addTodo({...this.todoForm.value, isPublic: this.todoForm.value.isPublic});
     let todolist = this.todoService.getTodos();
     console.log(todolist);
     this.todoForm.reset();

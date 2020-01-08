@@ -77,3 +77,13 @@ app-loading-spinner{
     bottom: 72px;
     right: 168px;
 }
+
+input.ng-invalid.ng-touched{
+    border: 1px solid red;
+}
+
+button:disabled,
+button[disabled]{
+  opacity: 0.65;
+  cursor: not-allowed;
+}

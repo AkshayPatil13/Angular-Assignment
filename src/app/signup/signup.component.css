@@ -114,3 +114,9 @@ app-loading-spinner{
     bottom: 28px;
     right: 95px;
 }
+
+button:disabled,
+button[disabled]{
+  opacity: 0.65;
+  cursor: not-allowed;
+}

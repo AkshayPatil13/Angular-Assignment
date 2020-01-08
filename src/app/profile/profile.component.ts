@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
   formError: any = false;
   editProfile: FormGroup;
   imageUrl: any = '../../assets/images/Profile.png';
+
   constructor(private userService: UserService,
     private router: Router) { }
 
@@ -65,7 +66,7 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.editProfile.value).subscribe((users) => {
       this.userService.usersChanged.next(users);
       this.isFetching = false;
-      return this.router.navigate(['/todo-list']);
+      return this.router.navigate(['/todos']);
     });
   }
 
