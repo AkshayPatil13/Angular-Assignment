@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   formError: any = false;
   isFetching: boolean = false;
   errorMessage: string = 'An error occurred!';
+  
   constructor(private userService: UserService,
     private router: Router) { }
 

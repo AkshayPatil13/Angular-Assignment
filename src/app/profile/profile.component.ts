@@ -17,70 +17,67 @@ export class ProfileComponent implements OnInit {
   imageUrl: any = '../../assets/images/Profile.png';
 
   constructor(private userService: UserService,
-    private router: Router) { }
+              private router: Router) { }
 
-  ngOnInit() {
-    this.userService.getUsers();
-    this.userService.usersChanged.subscribe((users) => {
-      this.isFetching = false;
-      this.users = users;
-    });
-    const loggedInUser = this.userService.getLoggedInUserInfo();
-    if (!loggedInUser) {
-      this.router.navigate(['/login']);
+  
+    ngOnInit() {
+      this.userService.getUsers();
+      this.userService.usersChanged.subscribe((users) => {
+        this.isFetching = false;
+        this.users = users;
+      });
+      const loggedInUser = this.userService.getLoggedInUserInfo();
+      console.log("loggedInUser "+loggedInUser);
+      if (!loggedInUser) {
+        this.router.navigate(['/login']);
+      }
+
+      let fistName = loggedInUser.firstName;
+      let lastName = loggedInUser.lastName;
+      let gender = loggedInUser.gender;
+      let address = loggedInUser.address;
+      this.imageUrl = loggedInUser.image;
+
+      this.editProfile = new FormGroup({
+        'firstName': new FormControl(fistName, Validators.required),
+        'lastName': new FormControl(lastName, Validators.required),
+        'gender': new FormControl(gender, Validators.required),
+        'address': new FormControl(address, Validators.required),
+        'profileImage': new FormControl(null)
+      })
     }
 
-    let fistName = loggedInUser.firstName;
-    let lastName = loggedInUser.lastName;
-    let gender = loggedInUser.gender;
-    let address = loggedInUser.address;
-    this.imageUrl = loggedInUser.image;
-
-    this.editProfile = new FormGroup({
-      'firstName': new FormControl(fistName, Validators.required),
-      'lastName': new FormControl(lastName, Validators.required),
-      'gender': new FormControl(gender, Validators.required),
-      'address': new FormControl(address, Validators.required),
-      'profileImage': new FormControl(null)
-    })
-  }
-
-  UploadProfilePicture(event) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (event) => {
-        this.imageUrl = reader.result;
+    UploadProfilePicture(event) {
+      if (event.target.files && event.target.files[0]) {
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = (event) => {
+          this.imageUrl = reader.result;
+        }
       }
     }
-  }
 
-  validateProfileData() {
-    if ((this.editProfile.value.firstName).trim() == "" ||
-      (this.editProfile.value.lastName).trim() == "" ||
-      (this.editProfile.value.address).trim() == "" ||
-      this.editProfile.value.gender == null) {
-      alert('Please fill out all the Fields..!!');
-      return false;
+    validateProfileData() {
+      if ((this.editProfile.value.firstName).trim() == "" ||
+        (this.editProfile.value.lastName).trim() == "" ||
+        (this.editProfile.value.address).trim() == "" ||
+        this.editProfile.value.gender == null) {
+        alert('Please fill out all the Fields..!!');
+        return false;
+      }
+      return true;
     }
-    return true;
-  }
 
-  onEditProfile() {
-    // if (!this.editProfile.valid) {
-    //   this.formError = true;
-    //   return false;
-    // }
-    let allowEdit = this.validateProfileData();
-    if (allowEdit == true) {
-      this.isFetching = true;
-      this.editProfile.value.profileImage = this.imageUrl;
-      this.userService.updateUser(this.editProfile.value).subscribe((users) => {
-        this.userService.usersChanged.next(users);
-        this.isFetching = false;
-        return this.router.navigate(['/todos']);
-      });
+    onEditProfile() {
+      let allowEdit = this.validateProfileData();
+      if (allowEdit == true) {
+        this.isFetching = true;
+        this.editProfile.value.profileImage = this.imageUrl;
+        this.userService.updateUser(this.editProfile.value).subscribe((users) => {
+          this.userService.usersChanged.next(users);
+          this.isFetching = false;
+          return this.router.navigate(['/todos']);
+        });
+      }
     }
-  }
-
 }

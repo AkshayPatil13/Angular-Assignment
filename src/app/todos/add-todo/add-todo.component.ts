@@ -9,10 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-todo.component.css']
 })
 export class AddTodoComponent implements OnInit {
-  isEditMode: boolean = false;
+ isEditMode: boolean = false;
   todoForm: FormGroup;
   constructor(private todoService: TodoService,
-    private router: Router) { }
+              private router: Router) { }
+
 
   ngOnInit() {
     this.todoForm = new FormGroup({
@@ -20,9 +21,40 @@ export class AddTodoComponent implements OnInit {
       'startDate': new FormControl(null, Validators.required),
       'dueDate': new FormControl(null, Validators.required),
       'isPublic': new FormControl(null),
-      'categories': new FormControl(null, Validators.required),
+      'category': new FormControl(null, Validators.required),
       'description': new FormControl(null, Validators.required)
     })
+  }
+ 
+  onSubmit() {
+    let allowInsertion = this.validateTodoData();
+    if (allowInsertion == true) {
+      document.getElementById('formError').innerHTML = '';
+      this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Yes' : 'No';
+      this.todoService.addTodo({ ...this.todoForm.value, isPublic: this.todoForm.value.isPublic });
+      this.todoForm.reset();
+    }
+  }
+
+  temp:string = '';
+
+  onEditTodo(id){
+    this.isEditMode = true;
+    this.temp = id;
+    let todo = this.todoService.getTodoItem(id);
+    this.todoForm.controls['startDate'].setValue(todo.startDate);
+    this.todoForm.controls['dueDate'].setValue(todo.dueDate);
+    this.todoForm.controls['isPublic'].setValue(todo.isPublic);
+    this.todoForm.controls['category'].setValue(todo.category);
+    this.todoForm.controls['description'].setValue(todo.description);
+    this.todoForm.controls['title'].setValue(todo.title);
+  }
+
+  onSaveChanges(){
+    this.todoService.updateTodo(this.temp,this.todoForm.value);
+    this.temp = "";
+    this.todoForm.reset();
+    this.isEditMode = false;
   }
 
   validateTodoData() {
@@ -50,19 +82,14 @@ export class AddTodoComponent implements OnInit {
     }
     return true;
   }
-  onSubmit() {
-    let allowInsertion = this.validateTodoData();
-    if (allowInsertion == true) {
-      document.getElementById('formError').innerHTML = '';
-      this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Yes' : 'No';
-      this.todoService.addTodo({ ...this.todoForm.value, isPublic: this.todoForm.value.isPublic });
-      let todolist = this.todoService.getTodos();
-      console.log(todolist);
-      this.todoForm.reset();
-    }
-    // this.router.navigate(['/todo-list']);
+
+  disablePreviousDates(elementId) {
+    let dateInput = document.getElementById(elementId);
+    const cur_date = new Date();
+    const cur_month = cur_date.getMonth() > 9 ? cur_date.getMonth() + 1 : '0' + (cur_date.getMonth() + 1);
+    const cur_day = cur_date.getDate() > 9 ? cur_date.getDate() : '0' + cur_date.getDate();
+    const dateStr = cur_date.getFullYear() + '-' + cur_month + '-' + cur_day;
+    dateInput.setAttribute('min', dateStr);
   }
-
-
-
+  
 }

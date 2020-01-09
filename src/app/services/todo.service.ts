@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 })
 export class TodoService {
   constructor() { }
-  
+  selectedTodo = new Subject<string>();
   todos: Todo[] = [];
   todosChanged = new Subject<Todo[]>();
 
@@ -20,14 +20,6 @@ export class TodoService {
     this.todosChanged.next(this.todos.slice());
   }
 
-  // deleteTodos(id: string[]){
-  //   let updatedTodoList = this.todos.filter(function(todo){
-  //     return !id.includes(todo.id)
-  //   });
-  //   this.todos = updatedTodoList;
-  //   this.todosChanged.next(this.todos.slice());
-  // }
-
   deleteTodos(todoId: string[]){
     for(let i=0;i<todoId.length;i++){
       for(let j=0;j<this.todos.length;j++){
@@ -37,6 +29,12 @@ export class TodoService {
       }
     }
    
+    this.todosChanged.next(this.todos.slice());
+  }
+
+  updateTodo(id: string, newTodo: Todo) {
+    let index = this.todos.findIndex((value) => value.id == id);
+    this.todos[index] = {...newTodo, status:this.todos[index].status, id: this.generateId()};
     this.todosChanged.next(this.todos.slice());
   }
 
@@ -55,4 +53,7 @@ export class TodoService {
     return this.todos.slice();
   }
 
+  getTodoItem(id: string){
+    return this.todos.find(x => x.id == id);
+  }
 }

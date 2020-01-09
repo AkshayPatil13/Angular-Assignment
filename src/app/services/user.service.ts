@@ -63,19 +63,19 @@ export class UserService {
     localStorage.setItem('userData', JSON.stringify(authUser));
   }
 
-  getUsers() {
+   getUsers() {
     return this.http
       .get<User[]>(
         this.apiUrl + 'users.json'
       )
       .pipe(
-        map(users => {
+        map(users =>  {
           this.users = [];
           let loginUserData = JSON.parse(localStorage.getItem('userData'));
           for (const key in users) {
             if (users.hasOwnProperty(key)) {
               const user = users[key];
-              user.loginStatus = (user.email == loginUserData.email);
+              user.loginStatus = (user.email == loginUserData.email);    
               this.users.push(user);
             }
           }

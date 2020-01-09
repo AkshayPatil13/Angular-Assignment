@@ -12,7 +12,7 @@ export class CategoriesFilterPipe implements PipeTransform {
 
     let resultArray = [];
     for(let item of value){
-      if(item['categories'].toLowerCase() === filterCategory.toLowerCase()){
+      if(item['category'].toLowerCase() === filterCategory.toLowerCase()){
         resultArray.push(item);
       }
     }

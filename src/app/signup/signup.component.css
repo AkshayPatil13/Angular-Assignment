@@ -112,7 +112,7 @@ border-color: #eed3d7;
 app-loading-spinner{
     position: absolute;
     bottom: 28px;
-    right: 95px;
+    right: 225px;
 }
 
 button:disabled,

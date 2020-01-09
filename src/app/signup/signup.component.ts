@@ -65,18 +65,19 @@ export class SignupComponent implements OnInit {
     );
 
     this.userService.addUser(newUser).subscribe((responseData) => {
-      this.formError = false;
-      this.userCreated = true;
-      this.signupForm.reset();
-      setTimeout(() => {
-        this.isFetching = false;
-        this.router.navigate(['/login']);
-      }, 500);
+        this.formError = false;
+        this.userCreated = true;
+        this.signupForm.reset();
+        setTimeout(() => {
+          this.isFetching = false;
+          this.router.navigate(['/login']);
+        }, 500);
 
-    }, (error) => {
-      this.formError = error;
-      console.log(this.formError);
-      this.isFetching = false;
-    });
+      }, (error) => {
+        this.formError = error;
+        console.log(this.formError);
+        this.isFetching = false;
+      }
+    );
   }
 }

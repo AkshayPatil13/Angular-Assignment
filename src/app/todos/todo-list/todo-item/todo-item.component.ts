@@ -14,8 +14,6 @@ export class TodoItemComponent implements OnInit {
   ngOnInit() {
   }
 
- 
-
   multiTodoSelected(todoId: string){
     this.todoSelected.emit(todoId);
   }
