@@ -21,13 +21,7 @@ export class ProfileComponent implements OnInit {
 
   
     ngOnInit() {
-      this.userService.getUsers();
-      this.userService.usersChanged.subscribe((users) => {
-        this.isFetching = false;
-        this.users = users;
-      });
       const loggedInUser = this.userService.getLoggedInUserInfo();
-      console.log("loggedInUser "+loggedInUser);
       if (!loggedInUser) {
         this.router.navigate(['/login']);
       }
