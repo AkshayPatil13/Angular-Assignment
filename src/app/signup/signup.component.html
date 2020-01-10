@@ -47,7 +47,7 @@
 
         <input id="address" type="text" placeholder="Address" formControlName="address">
 
-        <button type="submit" [disabled]="!signupForm.valid || isFetching" class="btn-style">Sign Up</button>
+        <button type="submit" [disabled]="!signupForm.valid || isFetching" class="btn-style">{{ buttonText}}</button>
     </form>
 
     <div style="text-align: center;" *ngIf="isFetching">

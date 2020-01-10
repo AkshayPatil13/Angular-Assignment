@@ -4,23 +4,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignupComponent } from '../signup/signup.component';
 import { LoginComponent } from '../login/login.component';
 import { ProfileComponent } from '../profile/profile.component';
-import { TodoListComponent } from '../todos/todo-list/todo-list.component';
-import { AddTodoComponent } from '../todos/add-todo/add-todo.component';
 import { TodosComponent } from '../todos/todos.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { AuthGuard } from '../shared/loading-spinner/auth.guard';
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'profile', component: ProfileComponent },
-  {
-    path: 'todos', component: TodosComponent, children: [
-      { path: 'add-todo', component: AddTodoComponent },
-      // {path: 'todo-list', component: TodoListComponent}
-    ]
-  },
+  { path: 'profile', canActivate: [AuthGuard], component: ProfileComponent },
+  { path: 'todos', canActivate: [AuthGuard], component: TodosComponent},
   { path: '**', component: PageNotFoundComponent }
 ];
 @NgModule({

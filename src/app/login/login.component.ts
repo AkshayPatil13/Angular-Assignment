@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit {
   formError: any = false;
   isFetching: boolean = false;
   errorMessage: string = 'An error occurred!';
-  
+  buttonText: string = 'Log In';
+
   constructor(private userService: UserService,
     private router: Router) { }
 
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    this.buttonText = 'Please wait..';
     this.isFetching = true;
     this.userService.loginUser(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe((responseData) => {
@@ -41,6 +43,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/todos']);
         }, 1000);
       }, (errorMessage) => {
+        this.buttonText = 'Log In';
         this.isFetching = false;
         this.formError = true;
         this.errorMessage = errorMessage

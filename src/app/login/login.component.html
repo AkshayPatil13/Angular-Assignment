@@ -14,7 +14,7 @@
 
         <input id="password" type="password" formControlName="password" placeholder="Enter Password">
 
-        <button type="button" class="login" [disabled]="!loginForm.valid" (click)="onLogin()">Log In</button>
+        <button type="button" class="login" [disabled]="!loginForm.valid || isFetching" (click)="onLogin()">{{ buttonText }}</button>
     </form>
     <div style="text-align: center" *ngIf="isFetching">
         <app-loading-spinner></app-loading-spinner>

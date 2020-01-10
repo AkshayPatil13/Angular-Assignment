@@ -3,17 +3,20 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
+
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   imageUrl: any = '../../assets/images/Profile.png';
   formError: any = false;
   userCreated: boolean = false;
   isFetching: boolean = false;
+  buttonText: string = 'Sign Up';
 
   constructor(private userService: UserService,
     private router: Router) { }
@@ -48,7 +51,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSignup() {
-    console.log(this.signupForm);
+    this.buttonText = 'Please wait...';
     if (!this.signupForm.valid) {
       this.formError = true;
       return false;
@@ -74,10 +77,11 @@ export class SignupComponent implements OnInit {
         }, 500);
 
       }, (error) => {
+        this.buttonText = 'Sign Up';
         this.formError = error;
-        console.log(this.formError);
         this.isFetching = false;
       }
     );
   }
+  
 }
