@@ -51,10 +51,15 @@ export class AddTodoComponent implements OnInit {
   }
 
   onSaveChanges(){
-    this.todoService.updateTodo(this.temp,this.todoForm.value);
-    this.temp = "";
-    this.todoForm.reset();
-    this.isEditMode = false;
+    let allowInsertion = this.validateTodoData();
+    if(allowInsertion == true){
+      document.getElementById('formError').innerHTML = '';
+      this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Yes' : 'No';
+      this.todoService.updateTodo(this.temp, {...this.todoForm.value,isPublic: this.todoForm.value.isPublic});
+      this.temp = "";
+      this.todoForm.reset();
+      this.isEditMode = false;
+    }
   }
 
   validateTodoData() {

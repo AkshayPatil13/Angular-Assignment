@@ -20,8 +20,14 @@
         </div>
 
         <input id="firstName" type="text" placeholder="First Name" formControlName="firstName">
+        <p class="error"
+        *ngIf="!signupForm.get('firstName').valid && (signupForm.get('firstName').dirty || signupForm.get('firstName').touched )">
+        first name should contain atleast 3 characters..!!</p>
 
         <input id="lastName" type="text" placeholder="Last Name" formControlName="lastName">
+        <p class="error"
+        *ngIf="!signupForm.get('lastName').valid && (signupForm.get('lastName').dirty || signupForm.get('lastName').touched )">
+        last name should contain atleast 3 characters..!!</p>
 
         <input id="email" type="email" placeholder="Email Address" formControlName="email">
         <p class="error"
@@ -35,13 +41,13 @@
             Password must be at least 6 characters long..!!</p>
 
         Gender :&nbsp;
-        <input type="radio" name="gender" value="male" formControlName="gender" [checked]="true"><label>Male</label>
+        <input type="radio" name="gender" value="male" formControlName="gender"><label>Male</label>
         <input type="radio" name="gender" value="female" formControlName="gender"><label>Female</label>
         <input type="radio" name="gender" value="other" formControlName="gender"><label>Other</label>
 
         <input id="address" type="text" placeholder="Address" formControlName="address">
 
-        <button type="submit" [disabled]="!signupForm.valid" class="btn-style">Sign Up</button>
+        <button type="submit" [disabled]="!signupForm.valid || isFetching" class="btn-style">Sign Up</button>
     </form>
 
     <div style="text-align: center;" *ngIf="isFetching">
