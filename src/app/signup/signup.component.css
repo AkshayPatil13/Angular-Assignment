@@ -59,6 +59,7 @@ input[type='radio']{
     font-size: 14px;
     margin-bottom: 20px;
     margin-right: 5px;
+    cursor: pointer;
 }
 
 .btn-style{
@@ -70,6 +71,10 @@ input[type='radio']{
     padding: 10px;
     border-radius: 5px;
     border: none;
+}
+
+label{
+    cursor: pointer;
 }
 
 .btn-style:hover{
@@ -94,12 +99,6 @@ input.ng-invalid.ng-touched {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-}
-
-.alert-success {
-    color: #468847;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
 }
 
 .alert-danger,

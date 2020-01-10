@@ -14,11 +14,14 @@ export class LoginComponent implements OnInit {
   isFetching: boolean = false;
   errorMessage: string = 'An error occurred!';
   buttonText: string = 'Log In';
+  userCreated: boolean = false;
 
   constructor(private userService: UserService,
     private router: Router) { }
 
   ngOnInit() {
+    this.userCreated = this.userService.userRegistered;
+    // setTimeout(() => this.userCreated = false,1000);
     this.userService.checkLoggedInUser();
     this.userService.userAuth.subscribe((userData) => {
       if (userData) {

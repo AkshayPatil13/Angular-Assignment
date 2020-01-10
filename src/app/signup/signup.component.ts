@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(6)]),
       'gender': new FormControl(null, Validators.required),
-      'address': new FormControl(null, Validators.required),
+      'address': new FormControl(null),
       'profileImage': new FormControl(null)
     })
   }
@@ -70,6 +70,7 @@ export class SignupComponent implements OnInit {
     this.userService.addUser(newUser).subscribe((responseData) => {
         this.formError = false;
         this.userCreated = true;
+        this.userService.userRegistered = this.userCreated;
         this.signupForm.reset();
         setTimeout(() => {
           this.isFetching = false;
@@ -83,5 +84,5 @@ export class SignupComponent implements OnInit {
       }
     );
   }
-  
+
 }

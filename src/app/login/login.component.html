@@ -1,3 +1,7 @@
+<div class="alert alert-success" *ngIf="userCreated">
+    User registered successfully!
+</div>
+
 <img class="logo" src="../../assets/images/logo.png" alt="logo">
 
 <div class="form-container">
@@ -14,7 +18,7 @@
 
         <input id="password" type="password" formControlName="password" placeholder="Enter Password">
 
-        <button type="button" class="login" [disabled]="!loginForm.valid || isFetching" (click)="onLogin()">{{ buttonText }}</button>
+        <button type="submit" class="login" [disabled]="!loginForm.valid || isFetching">{{ buttonText }}</button>
     </form>
     <div style="text-align: center" *ngIf="isFetching">
         <app-loading-spinner></app-loading-spinner>

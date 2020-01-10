@@ -40,6 +40,28 @@
 
 }
 
+input[type="date"]{
+    position: relative;
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+
+label{
+    cursor: pointer;
+}
+
 .right-section textarea{
     width: 100%;
     margin-bottom: 20px;
@@ -72,3 +94,4 @@ button[disabled]{
   opacity: 0.65;
   cursor: not-allowed;
 }
+

@@ -34,4 +34,10 @@ header ul li a{
 
 header a:hover{
     background-color: #E11B22;
+
+}
+
+.is-active{
+    background-color: #E11B22;
+    
 }

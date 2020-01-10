@@ -14,7 +14,8 @@ export class UserService {
   users: User[] = [];
   usersChanged = new Subject<any>();
   userAuth = new BehaviorSubject<Auth>(null);
-
+  userRegistered:boolean;
+  
   constructor(private http: HttpClient) { }
 
   setUsers(users: User[]) {
@@ -140,6 +141,7 @@ export class UserService {
   logout() {
     localStorage.removeItem('userData');
     this.userAuth.next(null);
+    
   }
 
   updateUser(updatedInfo) {
