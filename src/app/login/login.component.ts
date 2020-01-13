@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   formError: any = false;
   isFetching: boolean = false;
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     this.userService.checkLoggedInUser();
     this.userService.userAuth.subscribe((userData) => {
       if (userData) {
-        this.router.navigate(['/todos']);
+        this.router.navigate(['/todos/todo-list']);
       }
     })
     this.loginForm = new FormGroup({
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         this.errorMessage = '';
         setTimeout(() => {
           this.isFetching = false;
-          this.router.navigate(['/todos']);
+          this.router.navigate(['/todos/todo-list']);
         }, 1000);
       }, (errorMessage) => {
         this.buttonText = 'Log In';
@@ -52,5 +52,9 @@ export class LoginComponent implements OnInit {
         this.errorMessage = errorMessage
       });
   }
+
+ngOnDestroy(){
+  this.userService.userRegistered = false;
+}
 
 }

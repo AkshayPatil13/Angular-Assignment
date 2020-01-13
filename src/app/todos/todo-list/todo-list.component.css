@@ -4,8 +4,8 @@ input, textarea , select{
 }
 
 .left-section{
-    width: 65%;
-    float: left;
+    /* width: 65%;
+    float: left; */
     padding: 20px;
     margin-top: 40px;
     margin-bottom: 40px;
@@ -16,6 +16,10 @@ input, textarea , select{
     color:  #C70039;
     text-align: center;
     margin-top: 30px;
+}
+
+.noTodos{
+    text-align: center;
 }
 
 .left-section select , .left-section input[type="date"]{
@@ -100,6 +104,7 @@ thead th , tbody td{
     box-shadow: 0 10px 6px -6px #777;
     border-radius: 15px;
     color: #656;
+    width: 300px;
 }
 
 .search-todos:focus{

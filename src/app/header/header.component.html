@@ -1,7 +1,7 @@
 <header *ngIf="isAuthenticated">
     <nav>
         <ul>
-            <li><a routerLink='/todos' [routerLinkActive]="'is-active'">My ToDo List</a></li>
+            <li><a routerLink='/todos/todo-list' [routerLinkActive]="'is-active'">My ToDo List</a></li>
             <li><a routerLink='/profile'[routerLinkActive]="'is-active'">My Profile</a></li>
             <li><a (click)="onLogout()">Logout</a></li>
             <div class="clearfix"></div>

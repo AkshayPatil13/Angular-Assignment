@@ -21,7 +21,7 @@
 
         <button type="submit" id="add" class="add" [disabled]="!todoForm.valid" *ngIf="isEditMode == false">Add</button>
         <button class="update-data" type="button" id="save" *ngIf="isEditMode == true" (click)="onSaveChanges()">Save Changes</button>
-        <button type="reset" class="reset" *ngIf="todoForm.touched">Reset</button>
+        <button type="reset" class="reset" [disabled]="!todoForm.touched">Reset</button>
     </form>
 </div>
 

@@ -1,9 +1,8 @@
 <div class="left-section">
-
     <div *ngIf="todos.length > 0">
         <label>Filter By :</label>
         <select class="filter" name="filters" id="filterBy" (change)="showFurtherFilters($event.target.value)">
-            <option value="select">Select All</option>
+            <option value="select">Show All</option>
             <option value="Categories">Categories</option>
             <option value="Status">Status</option>
             <option value="Date">Date</option>
@@ -34,11 +33,15 @@
             <button type="button" id="edit" class="edit" (click)="onEditTodo()">Edit</button>
             <button type="button" id="delete" class="delete" (click)="onDeleteTodo()">Delete</button>
             <button type="button" id="markAsDone" class="mark-as-done" (click)="onStatusChange()">Mark as Done</button>
+            <button class="add" (click)="navigateToAddTodo()">Add Todo</button>
             <input type="text" class="search-todos" placeholder="Search your todos..." [(ngModel)]="filterString">
         </div>
     </div>
    
-    <h1 id="noDataFound" *ngIf="todos.length == 0">No Data Found..!!</h1>
+    <div class="noTodos" *ngIf="todos.length == 0">
+        <h1 id="noDataFound">No Data Found..!!</h1>
+        <button class="add noTodos" (click)="navigateToAddTodo()">Add New Todo</button>
+    </div>
     <table class="todo-table" id="todoTable" *ngIf="todos.length > 0">
         <thead>
             <tr>
@@ -50,6 +53,7 @@
                 <th>Category</th>
                 <th>Description</th>
                 <th>Status</th>
+                <th>Actions</th>
             </tr>
         </thead>
 
@@ -63,3 +67,4 @@
     </table>
 </div>
 <div class="clearfix"></div>
+<router-outlet></router-outlet>

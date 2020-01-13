@@ -3,7 +3,6 @@ import { TodoService } from 'src/app/services/todo.service';
 import { Todo } from 'src/app/models/todo.model';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
@@ -22,17 +21,17 @@ export class TodoListComponent implements OnInit, DoCheck {
   constructor(private todoService: TodoService,
               private route: Router) { }
 
-  ngOnInit() {
+  ngOnInit() { }
 
-  }
-
-  
-  
   ngDoCheck() {
     this.todoService.todosChanged.subscribe((todos: Todo[]) => {
       this.todos = todos;
     });
     this.todos = this.todoService.getTodos();
+  }
+
+  navigateToAddTodo(){
+    this.route.navigate(['/todos/new']);
   }
 
   todoSelected(todoId: string) {
@@ -62,9 +61,6 @@ export class TodoListComponent implements OnInit, DoCheck {
       this.selectedTodos = [];
     }
   }
-
- 
-
 
   onDeleteTodo() {
     if(this.selectedTodos.length == 0){

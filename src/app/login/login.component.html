@@ -15,6 +15,9 @@
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
 
         <input id="email" type="email" formControlName="email" placeholder="Enter Email Address">
+        <p class="error"
+        *ngIf="!loginForm.get('email').valid && (loginForm.get('email').dirty || loginForm.get('email').touched )">Please enter a valid email address..!!
+    </p>
 
         <input id="password" type="password" formControlName="password" placeholder="Enter Password">
 

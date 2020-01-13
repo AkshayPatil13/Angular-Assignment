@@ -7,4 +7,8 @@
 <td>{{ todo.category}}</td>
 <td>{{ todo.description}}</td>
 <td [ngClass]="{'done': (todo.status == 'Done'), 'pending': (todo.status == 'Pending')}">{{ todo.status}}</td>
+<td>
+    <i class="far fa-edit"></i>
+    <i class="fas fa-trash-alt delete-icon" (click)="deleteTodo(todo.id)"></i>
+</td>
 

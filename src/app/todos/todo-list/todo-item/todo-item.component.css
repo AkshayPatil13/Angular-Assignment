@@ -36,3 +36,13 @@ input[type="checkbox"]{
     width: 15px;
 }
 
+.delete-icon{
+    color: red;
+    margin-left: 18px;
+}
+
+td i {
+    cursor: pointer;
+}
+
+

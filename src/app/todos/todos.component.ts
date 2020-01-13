@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../models/user.model';
 
 @Component({
@@ -20,5 +20,4 @@ export class TodosComponent implements OnInit {
       });
     const loggedInUser = this.userService.getLoggedInUserInfo();
   }
-
 }

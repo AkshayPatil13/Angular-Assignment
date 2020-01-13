@@ -20,6 +20,14 @@ export class TodoService {
     this.todosChanged.next(this.todos.slice());
   }
 
+  deleteTodo(id:string){
+    let filteredList = this.todos.filter((todo) => {
+        return todo.id != id;
+    })
+    this.todos = filteredList;
+    this.todosChanged.next(this.todos.slice());
+  }
+
   deleteTodos(todoId: string[]){
     for(let i=0;i<todoId.length;i++){
       for(let j=0;j<this.todos.length;j++){

@@ -34,6 +34,7 @@ export class AddTodoComponent implements OnInit {
       this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Public' : 'Private';
       this.todoService.addTodo({ ...this.todoForm.value, isPublic: this.todoForm.value.isPublic });
       this.todoForm.reset();
+      this.router.navigate(['/todos/todo-list']);
     }
   }
 
@@ -60,6 +61,7 @@ export class AddTodoComponent implements OnInit {
       this.temp = "";
       this.todoForm.reset();
       this.isEditMode = false;
+      this.router.navigate(['/todos/todo-list']);
     }
   }
 
