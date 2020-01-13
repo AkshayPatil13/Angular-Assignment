@@ -6,5 +6,5 @@
 <td>{{ todo.isPublic}}</td>
 <td>{{ todo.category}}</td>
 <td>{{ todo.description}}</td>
-<td>{{ todo.status}}</td>
+<td [ngClass]="{'done': (todo.status == 'Done'), 'pending': (todo.status == 'Pending')}">{{ todo.status}}</td>
 

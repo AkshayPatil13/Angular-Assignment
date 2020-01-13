@@ -21,3 +21,18 @@ td{
     vertical-align: middle;
 }
 
+.done{
+    font-weight: 700;
+    color: green;
+}
+
+.pending{
+    font-weight: 700;
+    color: red;
+}
+
+input[type="checkbox"]{
+    height: 15px;
+    width: 15px;
+}
+

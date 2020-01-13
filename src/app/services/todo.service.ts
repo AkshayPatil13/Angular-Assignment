@@ -16,7 +16,7 @@ export class TodoService {
   }
 
   addTodo(newTodo: Todo){
-    this.todos.push({...newTodo,status:'pending',id: this.generateId()});
+    this.todos.push({...newTodo,status:'Pending',id: this.generateId()});
     this.todosChanged.next(this.todos.slice());
   }
 

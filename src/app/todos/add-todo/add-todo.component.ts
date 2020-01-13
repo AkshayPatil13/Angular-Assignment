@@ -24,13 +24,14 @@ export class AddTodoComponent implements OnInit {
       'category': new FormControl(null, Validators.required),
       'description': new FormControl(null, Validators.required)
     })
+    console.log(this.todoForm);
   }
  
   onSubmit() {
     let allowInsertion = this.validateTodoData();
     if (allowInsertion == true) {
       document.getElementById('formError').innerHTML = '';
-      this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Yes' : 'No';
+      this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Public' : 'Private';
       this.todoService.addTodo({ ...this.todoForm.value, isPublic: this.todoForm.value.isPublic });
       this.todoForm.reset();
     }
@@ -54,7 +55,7 @@ export class AddTodoComponent implements OnInit {
     let allowInsertion = this.validateTodoData();
     if(allowInsertion == true){
       document.getElementById('formError').innerHTML = '';
-      this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Yes' : 'No';
+      this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Public' : 'Private';
       this.todoService.updateTodo(this.temp, {...this.todoForm.value,isPublic: this.todoForm.value.isPublic});
       this.temp = "";
       this.todoForm.reset();

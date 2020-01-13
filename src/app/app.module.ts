@@ -18,6 +18,7 @@ import { StatusPipePipe } from './todos/filters/status-pipe.pipe';
 import { CategoriesFilterPipe } from './todos/filters/categories-filter.pipe';
 import { DateFilterPipe } from './todos/filters/date-filter.pipe';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TitleFilterPipe } from './todos/filters/title-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     StatusPipePipe,
     CategoriesFilterPipe,
     DateFilterPipe,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TitleFilterPipe
   ],
   imports: [
     BrowserModule,

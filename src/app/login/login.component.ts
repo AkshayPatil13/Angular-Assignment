@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.userCreated = this.userService.userRegistered;
-    // setTimeout(() => this.userCreated = false,1000);
+    setTimeout(() => this.userCreated = false,3000);
     this.userService.checkLoggedInUser();
     this.userService.userAuth.subscribe((userData) => {
       if (userData) {

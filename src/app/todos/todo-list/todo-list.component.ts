@@ -2,7 +2,6 @@ import { Component, OnInit, DoCheck, Output, EventEmitter } from '@angular/core'
 import { TodoService } from 'src/app/services/todo.service';
 import { Todo } from 'src/app/models/todo.model';
 import { Router } from '@angular/router';
-import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 
 @Component({
@@ -17,6 +16,7 @@ export class TodoListComponent implements OnInit, DoCheck {
   filterCategory: string = '';
   startDate: string = '';
   dueDate: string = '';
+  filterString: string = '';
   @Output() passTodoId = new EventEmitter<string>();
 
   constructor(private todoService: TodoService,
@@ -58,7 +58,8 @@ export class TodoListComponent implements OnInit, DoCheck {
       alert("Only one Todo item can be edited at once..!!");
     }
     else{
-      this.passTodoId.emit(this.selectedTodos[0]);    
+      this.passTodoId.emit(this.selectedTodos[0]);
+      this.selectedTodos = [];
     }
   }
 
@@ -84,9 +85,6 @@ export class TodoListComponent implements OnInit, DoCheck {
   }
 
   showAllTodos(){
-    // document.getElementById('filterBy').selectedIndex = 0;
-    // document.getElementById('filterByStatus').selectedIndex = 0 ;
-    // document.getElementById('filterByCategories').selectedIndex = 0;
     document.getElementById('filterByStatus').style.display = "none";
     document.getElementById('filterByCategories').style.display = "none"; 
     document.getElementById('filterByDate').style.display = "none";
@@ -102,18 +100,25 @@ export class TodoListComponent implements OnInit, DoCheck {
     }
   }
 
-  showFurtherFilters() {
-    let filterType: any = document.getElementById('filterBy');
-    let filterName: any = filterType.options[filterType.selectedIndex].value;
+  showFurtherFilters(value) {
+  
+    switch(value){
 
-    if (filterName == "Categories") {
-      this.setFilterValues("inline-block", "none", "none");
-    }
-    else if (filterName == "Status") {
-      this.setFilterValues("none", "inline-block", "none");
-    }
-    else if (filterName == "Date") {
-      this.setFilterValues("none", "none", "inline-block");
+      case 'select':
+          this.showAllTodos();
+          break;
+
+      case 'Categories':
+          this.setFilterValues("inline-block", "none", "none");
+          break;
+
+      case 'Status':
+          this.setFilterValues("none", "inline-block", "none");
+          break;
+      
+      case 'Date':
+          this.setFilterValues("none", "none", "inline-block");
+          break;
     }
   }
 
