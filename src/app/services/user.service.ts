@@ -136,8 +136,6 @@ export class UserService {
     return this.users.find(x => x.loginStatus == true);
   }
 
-
-
   logout() {
     localStorage.removeItem('userData');
     this.userAuth.next(null);

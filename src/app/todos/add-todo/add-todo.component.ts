@@ -48,7 +48,7 @@ export class AddTodoComponent implements OnInit {
       'startDate': new FormControl(startDate, Validators.required),
       'dueDate': new FormControl(dueDate, Validators.required),
       'isPublic': new FormControl(isPublic),
-      'category': new FormControl(category, Validators.required),
+      'category': new FormControl(category),
       'description': new FormControl(description)
     })
 
@@ -73,24 +73,13 @@ export class AddTodoComponent implements OnInit {
   validateTodoData() {
     let tempStartDate = new Date(this.todoForm.value.startDate);
     let tempDueDate = new Date(this.todoForm.value.dueDate);
+
     if (tempStartDate.getTime() > tempDueDate.getTime()) {
       document.getElementById('formError').innerHTML = "Due date should come after the start date..!!";
       return false;
     }
-    if ((this.todoForm.value.title).trim() == "") {
+    else if ((this.todoForm.value.title).trim() == "") {
       document.getElementById('formError').innerHTML = "Please enter Title for ToDo Item..!!";
-      return false;
-    }
-    // if ((this.todoForm.value.description).trim() == "") {
-    //   document.getElementById('formError').innerHTML = "Please enter the description for ToDo Item..!!";
-    //   return false;
-    // }
-    if (this.todoForm.value.startDate == "") {
-      document.getElementById('formError').innerHTML = "Please set the start date..!!";
-      return false;
-    }
-    if (this.todoForm.value.dueDate == "") {
-      document.getElementById('formError').innerHTML = "Please set the due date..!!";
       return false;
     }
     return true;

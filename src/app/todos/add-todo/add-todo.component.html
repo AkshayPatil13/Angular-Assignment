@@ -1,15 +1,14 @@
 <div class="right-section">
 
     <form id="addToDo" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
-        <p class="alert alert-danger" id="formError"></p>
-        <p id="mandatory" class="error">All fields marked with an asterisk(*) are required</p>
-        <i class="fa fa-asterisk asterisk"></i>
+        <p class="error" id="formError">All fields marked with an asterisk(*) are required</p>
+        <i class="fa fa-asterisk asterisk-1"></i>
         <input type="text" placeholder="Title.." id="toDoTitle" formControlName="title"><br>
 
-        <i class="fa fa-asterisk asterisk"></i>
+        <i class="fa fa-asterisk asterisk-2"></i>
         <label>Start Date : </label><input id="startDate" type="date" formControlName="startDate" #startDate (click)="disablePreviousDates(startDate.id)"><br>
 
-        <i class="fa fa-asterisk asterisk"></i>
+        <i class="fa fa-asterisk asterisk-3"></i>
         <label>Due Date : </label> <input id="dueDate" type="date" formControlName="dueDate" #dueDate (click)="disablePreviousDates(dueDate.id)"><br>
 
         <div class="public">
@@ -18,7 +17,7 @@
         </div>
 
         <label>Categories :</label>
-        <label><input type="radio" name="category" value="Home" formControlName="category">Home</label>
+        <label><input type="radio" name="category" value="Home" formControlName="category" [checked]="true">Home</label>
         <label><input type="radio" name="category" value="Personal" formControlName="category">Personal</label>
         <label><input type="radio" name="category" value="Office" formControlName="category">Office</label>
 

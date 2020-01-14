@@ -49,18 +49,12 @@ export class TodoListComponent implements OnInit, DoCheck {
   }
 
   onDeleteTodo() {
-    if(this.selectedTodos.length == 0){
-      alert("Please select a Todo Item to delete..!!");
-    }
     this.todoService.deleteTodos(this.selectedTodos);
     this.selectedTodos = [];
 
   }
 
   onStatusChange() {
-    if(this.selectedTodos.length == 0){
-      alert("Please select a Todo Item to update its Status..!!");
-    }
     this.todoService.updateToDoStatus(this.selectedTodos);
     this.selectedTodos = [];
     this.RemoveChecks();

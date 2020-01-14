@@ -11,6 +11,7 @@
     margin: 0 auto;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     padding: 25px 40px;
+    position: relative;
 }
 .right-section input[type="text"]{
     width: 100%;
@@ -47,19 +48,6 @@
 input[type="date"]{
     position: relative;
     cursor: pointer;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-    background: transparent;
-    bottom: 0;
-    color: transparent;
-    cursor: pointer;
-    height: auto;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: auto;
 }
 
 label{
@@ -99,10 +87,26 @@ button[disabled]{
   cursor: not-allowed;
 }
 
-.asterisk{
+.asterisk-1{
     font-size:x-small;
     color:#d93025;
     position:relative;
     left:100%;
     top:3px;
+}
+
+.asterisk-2{
+    font-size: x-small;
+    color: #d93025;
+    position: absolute;
+    left: 64%;
+    top: 18.7%;
+}
+
+.asterisk-3{
+    font-size: x-small;
+    color: #d93025;
+    position: absolute;
+    left: 63.5%;
+    top: 28.4%;
 }

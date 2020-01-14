@@ -14,8 +14,7 @@ export class TodoItemComponent implements OnInit {
   constructor(private todoService: TodoService,
               private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   multiTodoSelected(todoId: string){
     this.todoSelected.emit(todoId);
@@ -24,6 +23,7 @@ export class TodoItemComponent implements OnInit {
   onEditTodo(todoId: string){
     this.router.navigate(['/todos/todo',todoId,'edit']);
   }
+
   onDeleteTodo(todoId:string){
     this.todoService.deleteTodo(todoId);
   }

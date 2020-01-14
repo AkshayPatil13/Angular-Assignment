@@ -9,6 +9,7 @@ import { User } from '../models/user.model';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent implements OnInit {
   users: User[] = [];
   isFetching: boolean = false;

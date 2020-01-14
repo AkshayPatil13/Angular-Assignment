@@ -60,7 +60,6 @@
             <tr app-todo-item [todo]="todo"
                 *ngFor="let todo of todos | categoriesFilter:filterCategory | titleFilter:filterString | statusFilter:filterStatus | dateFilter:startDate:dueDate let i=index"
                 (todoSelected)="todoSelected($event)">
-                <!-- <app-todo-item [todo]="todo"></app-todo-item> -->
             </tr>
         </tbody>
     </table>

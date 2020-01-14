@@ -16,6 +16,8 @@ export class TodoService {
   }
 
   addTodo(newTodo: Todo){
+    if(!newTodo.category)
+      newTodo.category = "Home";
     this.todos.push({...newTodo,status:'Pending',id: this.generateId()});
     this.todosChanged.next(this.todos.slice());
   }
@@ -64,6 +66,4 @@ export class TodoService {
   getTodoItem(id: string){
     return this.todos.find(x => x.id == id);
   }
-
-  //Testing;
 }

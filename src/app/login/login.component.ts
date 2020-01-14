@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   formError: any = false;
@@ -53,8 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
-ngOnDestroy(){
-  this.userService.userRegistered = false;
-}
-
+  ngOnDestroy(){
+    this.userService.userRegistered = false;
+  }
 }
