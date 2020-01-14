@@ -48,20 +48,6 @@ export class TodoListComponent implements OnInit, DoCheck {
     }
   }
 
-  onEditTodo() {
-    
-    if(this.selectedTodos.length == 0){
-      alert("Please select a Todo Item to edit..!!");
-    }
-    else if (this.selectedTodos.length > 1){
-      alert("Only one Todo item can be edited at once..!!");
-    }
-    else{
-      this.passTodoId.emit(this.selectedTodos[0]);
-      this.selectedTodos = [];
-    }
-  }
-
   onDeleteTodo() {
     if(this.selectedTodos.length == 0){
       alert("Please select a Todo Item to delete..!!");
@@ -85,8 +71,6 @@ export class TodoListComponent implements OnInit, DoCheck {
     document.getElementById('filterByCategories').style.display = "none"; 
     document.getElementById('filterByDate').style.display = "none";
     this.route.navigate(['../']);
-
-
   }
 
   RemoveChecks() {
@@ -97,9 +81,7 @@ export class TodoListComponent implements OnInit, DoCheck {
   }
 
   showFurtherFilters(value) {
-  
     switch(value){
-
       case 'select':
           this.showAllTodos();
           break;

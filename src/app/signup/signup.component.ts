@@ -81,6 +81,7 @@ export class SignupComponent implements OnInit {
         this.buttonText = 'Sign Up';
         this.formError = error;
         this.isFetching = false;
+        window.scrollBy(0,-200);
       }
     );
   }

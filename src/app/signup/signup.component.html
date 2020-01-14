@@ -19,26 +19,26 @@
                 (change)="UploadProfilePicture($event);">
         </div>
 
-        <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
+        <i class="fa fa-asterisk asterisk"></i>
         <input id="firstName" type="text" placeholder="First Name" formControlName="firstName">
         <p class="error"
         *ngIf="!signupForm.get('firstName').valid && (signupForm.get('firstName').dirty || signupForm.get('firstName').touched )">
         first name should contain atleast 3 characters..!!</p>
 
-        <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
+        <i class="fa fa-asterisk asterisk"></i>
         <input id="lastName" type="text" placeholder="Last Name" formControlName="lastName">
         <p class="error"
         *ngIf="!signupForm.get('lastName').valid && (signupForm.get('lastName').dirty || signupForm.get('lastName').touched )">
         last name should contain atleast 3 characters..!!</p>
 
-        <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
+        <i class="fa fa-asterisk asterisk"></i>
         <input id="email" type="email" placeholder="Email Address" formControlName="email">
         <p class="error"
             *ngIf="!signupForm.get('email').valid && (signupForm.get('email').dirty || signupForm.get('email').touched )">
             Please enter a valid email address..!!
         </p>
 
-        <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
+        <i class="fa fa-asterisk asterisk"></i>
         <input id="password" type="password" placeholder="Password" formControlName="password">
         <p class="error"
             *ngIf="!signupForm.get('password').valid && (signupForm.get('password').dirty || signupForm.get('password').touched )">

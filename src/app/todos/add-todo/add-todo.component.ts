@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TodoService } from 'src/app/services/todo.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-add-todo',
@@ -9,58 +9,63 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-todo.component.css']
 })
 export class AddTodoComponent implements OnInit {
- isEditMode: boolean = false;
-  todoForm: FormGroup;
-  constructor(private todoService: TodoService,
-              private router: Router) { }
+ editMode: boolean = false;
+ todoForm: FormGroup;
+ todoId: string = '';
+ constructor(private todoService: TodoService,
+             private router: Router,
+             private route: ActivatedRoute
+            ) {
+                this.route.params.subscribe((params: Params) => {
+                this.todoId = params['id'];
+                this.editMode =  params['id'] != null;
+                this.initForm();
+                });
+              }
 
-
-  ngOnInit() {
-    this.todoForm = new FormGroup({
-      'title': new FormControl(null, Validators.required),
-      'startDate': new FormControl(null, Validators.required),
-      'dueDate': new FormControl(null, Validators.required),
-      'isPublic': new FormControl(null),
-      'category': new FormControl(null, Validators.required),
-      'description': new FormControl(null, Validators.required)
-    })
-    console.log(this.todoForm);
-  }
+  ngOnInit() {}
  
+  initForm(){
+    let title = null;
+    let startDate = null;
+    let dueDate = null;
+    let isPublic = null;
+    let category = null;
+    let description = null;
+
+    if(this.editMode){
+      let todo = this.todoService.getTodoItem(this.todoId);
+      title = todo.title;
+      startDate = todo.startDate;
+      dueDate = todo.dueDate;
+      isPublic = todo.isPublic;
+      category = todo.category;
+      description = todo.description;
+    }
+
+    this.todoForm = new FormGroup({
+      'title': new FormControl(title, Validators.required),
+      'startDate': new FormControl(startDate, Validators.required),
+      'dueDate': new FormControl(dueDate, Validators.required),
+      'isPublic': new FormControl(isPublic),
+      'category': new FormControl(category, Validators.required),
+      'description': new FormControl(description)
+    })
+
+  }
   onSubmit() {
     let allowInsertion = this.validateTodoData();
     if (allowInsertion == true) {
       document.getElementById('formError').innerHTML = '';
       this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Public' : 'Private';
-      this.todoService.addTodo({ ...this.todoForm.value, isPublic: this.todoForm.value.isPublic });
+
+      if(this.editMode){
+        this.todoService.updateTodo(this.todoId, {...this.todoForm.value,isPublic: this.todoForm.value.isPublic});
+      }
+      else{
+        this.todoService.addTodo({ ...this.todoForm.value, isPublic: this.todoForm.value.isPublic });
+      }
       this.todoForm.reset();
-      this.router.navigate(['/todos/todo-list']);
-    }
-  }
-
-  temp:string = '';
-
-  onEditTodo(id){
-    this.isEditMode = true;
-    this.temp = id;
-    let todo = this.todoService.getTodoItem(id);
-    this.todoForm.controls['startDate'].setValue(todo.startDate);
-    this.todoForm.controls['dueDate'].setValue(todo.dueDate);
-    this.todoForm.controls['isPublic'].setValue(todo.isPublic);
-    this.todoForm.controls['category'].setValue(todo.category);
-    this.todoForm.controls['description'].setValue(todo.description);
-    this.todoForm.controls['title'].setValue(todo.title);
-  }
-
-  onSaveChanges(){
-    let allowInsertion = this.validateTodoData();
-    if(allowInsertion == true){
-      document.getElementById('formError').innerHTML = '';
-      this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Public' : 'Private';
-      this.todoService.updateTodo(this.temp, {...this.todoForm.value,isPublic: this.todoForm.value.isPublic});
-      this.temp = "";
-      this.todoForm.reset();
-      this.isEditMode = false;
       this.router.navigate(['/todos/todo-list']);
     }
   }
@@ -76,10 +81,10 @@ export class AddTodoComponent implements OnInit {
       document.getElementById('formError').innerHTML = "Please enter Title for ToDo Item..!!";
       return false;
     }
-    if ((this.todoForm.value.description).trim() == "") {
-      document.getElementById('formError').innerHTML = "Please enter the description for ToDo Item..!!";
-      return false;
-    }
+    // if ((this.todoForm.value.description).trim() == "") {
+    //   document.getElementById('formError').innerHTML = "Please enter the description for ToDo Item..!!";
+    //   return false;
+    // }
     if (this.todoForm.value.startDate == "") {
       document.getElementById('formError').innerHTML = "Please set the start date..!!";
       return false;

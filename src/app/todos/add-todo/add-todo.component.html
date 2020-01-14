@@ -1,9 +1,15 @@
 <div class="right-section">
 
     <form id="addToDo" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
-        <p class="error" id="formError"></p>
+        <p class="alert alert-danger" id="formError"></p>
+        <p id="mandatory" class="error">All fields marked with an asterisk(*) are required</p>
+        <i class="fa fa-asterisk asterisk"></i>
         <input type="text" placeholder="Title.." id="toDoTitle" formControlName="title"><br>
+
+        <i class="fa fa-asterisk asterisk"></i>
         <label>Start Date : </label><input id="startDate" type="date" formControlName="startDate" #startDate (click)="disablePreviousDates(startDate.id)"><br>
+
+        <i class="fa fa-asterisk asterisk"></i>
         <label>Due Date : </label> <input id="dueDate" type="date" formControlName="dueDate" #dueDate (click)="disablePreviousDates(dueDate.id)"><br>
 
         <div class="public">
@@ -19,8 +25,7 @@
         <textarea id="description" rows="10" placeholder="Add description here..."
             formControlName="description"></textarea><br>
 
-        <button type="submit" id="add" class="add" [disabled]="!todoForm.valid" *ngIf="isEditMode == false">Add</button>
-        <button class="update-data" type="button" id="save" *ngIf="isEditMode == true" (click)="onSaveChanges()">Save Changes</button>
+        <button type="submit" id="add" class="add" [disabled]="!todoForm.valid">{{ editMode == false ? 'Add' : 'Save Changes'}}</button>
         <button type="reset" class="reset" [disabled]="!todoForm.touched">Reset</button>
     </form>
 </div>

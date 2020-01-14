@@ -4,8 +4,6 @@ input, textarea , select{
 }
 
 .left-section{
-    /* width: 65%;
-    float: left; */
     padding: 20px;
     margin-top: 40px;
     margin-bottom: 40px;
@@ -109,4 +107,10 @@ thead th , tbody td{
 
 .search-todos:focus{
     outline: none;
+}
+
+button:disabled,
+button[disabled]{
+  opacity: 0.65;
+  cursor: not-allowed;
 }

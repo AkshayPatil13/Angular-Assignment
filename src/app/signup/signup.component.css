@@ -119,3 +119,11 @@ button[disabled]{
   opacity: 0.65;
   cursor: not-allowed;
 }
+
+.asterisk{
+    font-size:x-small;
+    color:#d93025;
+    position:relative;
+    left:100%;
+    top:3px;
+}
