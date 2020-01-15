@@ -15,15 +15,15 @@ export class AddTodoComponent implements OnInit {
  constructor(private todoService: TodoService,
              private router: Router,
              private route: ActivatedRoute
-            ) {
-                this.route.params.subscribe((params: Params) => {
-                this.todoId = params['id'];
-                this.editMode =  params['id'] != null;
-                this.initForm();
-                });
-              }
+            ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.params.subscribe((params: Params) => {
+      this.todoId = params['id'];
+      this.editMode =  params['id'] != null;
+    });
+    this.initForm();
+  }
  
   initForm(){
     let title = null;
@@ -35,12 +35,19 @@ export class AddTodoComponent implements OnInit {
 
     if(this.editMode){
       let todo = this.todoService.getTodoItem(this.todoId);
-      title = todo.title;
-      startDate = todo.startDate;
-      dueDate = todo.dueDate;
-      isPublic = todo.isPublic;
-      category = todo.category;
-      description = todo.description;
+      if(todo != null){
+        title = todo.title;
+        startDate = todo.startDate;
+        dueDate = todo.dueDate;
+        isPublic = todo.isPublic;
+        category = todo.category;
+        description = todo.description;
+      }
+      else{
+        this.editMode = false;
+        this.router.navigate(['/todos/new']);
+      }
+      
     }
 
     this.todoForm = new FormGroup({
@@ -75,11 +82,21 @@ export class AddTodoComponent implements OnInit {
     let tempDueDate = new Date(this.todoForm.value.dueDate);
 
     if (tempStartDate.getTime() > tempDueDate.getTime()) {
-      document.getElementById('formError').innerHTML = "Due date should come after the start date..!!";
+      document.getElementById('formError').innerHTML = "ERROR: Due date should come after the start date..!!";
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
       return false;
     }
     else if ((this.todoForm.value.title).trim() == "") {
-      document.getElementById('formError').innerHTML = "Please enter Title for ToDo Item..!!";
+      document.getElementById('formError').innerHTML = "ERROR: Please enter Title for ToDo Item..!!";
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
       return false;
     }
     return true;

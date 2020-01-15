@@ -48,3 +48,6 @@ table {
 	border-spacing: 0;
 }
 
+html,body{
+	font-family: 'Lato',sans-serif;
+}

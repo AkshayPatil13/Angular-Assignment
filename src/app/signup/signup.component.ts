@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit {
     this.userService.checkLoggedInUser();
     this.userService.userAuth.subscribe((userData) => {
       if (userData) {
-        this.router.navigate(['/todo-list']);
+        this.router.navigate(['/todos/todo-list']);
       }
     })
 
@@ -81,7 +81,11 @@ export class SignupComponent implements OnInit {
         this.buttonText = 'Sign Up';
         this.formError = error;
         this.isFetching = false;
-        window.scrollBy(0,-200);
+        window.scroll({ 
+          top: 0, 
+          left: 0, 
+          behavior: 'smooth' 
+        });
       }
     );
   }

@@ -19,7 +19,7 @@ export class TodoListComponent implements OnInit, DoCheck {
   @Output() passTodoId = new EventEmitter<string>();
 
   constructor(private todoService: TodoService,
-              private route: Router) { }
+              private router: Router) { }
 
   ngOnInit() { }
 
@@ -31,7 +31,7 @@ export class TodoListComponent implements OnInit, DoCheck {
   }
 
   navigateToAddTodo(){
-    this.route.navigate(['/todos/new']);
+    this.router.navigate(['/todos/new']);
   }
 
   todoSelected(todoId: string) {
@@ -64,7 +64,7 @@ export class TodoListComponent implements OnInit, DoCheck {
     document.getElementById('filterByStatus').style.display = "none";
     document.getElementById('filterByCategories').style.display = "none"; 
     document.getElementById('filterByDate').style.display = "none";
-    this.route.navigate(['../']);
+    this.router.navigate(['../']);
   }
 
   RemoveChecks() {

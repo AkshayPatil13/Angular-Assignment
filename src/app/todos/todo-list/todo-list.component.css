@@ -34,6 +34,9 @@ table.todo-table{
     margin-top: 20px;
     border: 1px solid black;
     border-collapse: collapse;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
 
 table.todo-table td{
@@ -41,13 +44,40 @@ table.todo-table td{
 }
 
 table.todo-table thead th{
-    background-color: #e0e0e0;
+    background-color: rgba(225,27,34,0.78);
+    font-weight: bold;
+    color: #fff;
+    padding: 12px;
 }
 
 table.todo-table td:nth-of-type(7){
     width: 50px;
 }
 
+thead th , tbody td{
+    text-align: center;
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.todo-table tbody tr:nth-of-type(even){
+    background-color: #f3f3f3;
+}
+
+.todo-table tbody tr{
+    border-bottom: 1px solid #dddddd;
+    cursor: default;
+}
+
+.todo-table tbody tr:last-of-type{
+    border-bottom: 3px solid rgba(225,27,34,0.78);
+}
+
+.todo-table  tbody tr:hover{
+    font-weight: 700;
+    background-color: #dddddd;
+
+}
 .edit, .delete, .mark-as-done, .add, .reset, .update-data, .show-todos{
     background-color: #E11B22;
     border: none;
@@ -76,13 +106,6 @@ table.todo-table td:nth-of-type(7){
     display: none;
 }
 
-thead th , tbody td{
-    text-align: center;
-    padding: 5px;
-    border: 1px solid black;
-    vertical-align: middle;
-}
-
 .error{
     width: 100%;
     font-size: 16px;
@@ -96,7 +119,7 @@ thead th , tbody td{
     padding: 7px 0;
     padding-left: 33px;
     font-size: 12px;
-    background-image: url('http://www.simpleimageresizer.com/_uploads/photos/2e6e87ae/searchIcon2_18x18.png');
+    background-image: url('../../../assets/images/searchIcon.png');
     background-repeat: no-repeat;
     background-position: 8px 5px;
     box-shadow: 0 10px 6px -6px #777;
