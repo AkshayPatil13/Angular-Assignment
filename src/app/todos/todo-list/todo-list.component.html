@@ -38,7 +38,7 @@
     </div>
    
     <div class="noTodos" *ngIf="todos.length == 0">
-        <h1 id="noDataFound">No Data Found..!!</h1>
+        <img src="../../../assets/images/nodata-found.png" class="no-data-found" alt="No Data Found">
         <button class="add noTodos" (click)="navigateToAddTodo()">Add New Todo</button>
     </div>
     <table class="todo-table" id="todoTable" *ngIf="todos.length > 0">

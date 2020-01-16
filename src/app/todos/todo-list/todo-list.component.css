@@ -137,3 +137,12 @@ button[disabled]{
   opacity: 0.65;
   cursor: not-allowed;
 }
+
+.no-data-found{
+    display: block;
+    margin: 0 auto;
+}
+
+.noTodos{
+    margin-top: 0;
+} 
