@@ -30,7 +30,7 @@
         </div>
     
         <div id="operations">
-            <button type="button" id="markAsDone" class="mark-as-done" (click)="onStatusChange()" [disabled]="selectedTodos.length == 0">Mark as Done</button>
+            <button type="button" id="markAsDone" class="mark-as-done" (click)="onStatusChange()" [disabled]="checkConditions()">Mark as Done</button>
             <button type="button" id="delete" class="delete" (click)="onDeleteTodo()" [disabled]="selectedTodos.length == 0">Delete</button>
             <button class="add" (click)="navigateToAddTodo()">Add Todo</button>
             <input type="text" class="search-todos" placeholder="Search your todos..." [(ngModel)]="filterString">

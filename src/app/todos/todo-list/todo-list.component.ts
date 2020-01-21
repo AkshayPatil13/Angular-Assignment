@@ -67,6 +67,21 @@ export class TodoListComponent implements OnInit, DoCheck {
     this.router.navigate(['../']);
   }
 
+  checkConditions(){
+    if(this.selectedTodos.length == 0){
+      return true;
+    }
+    else{
+      for(let selectedTodo of this.selectedTodos){
+        for(let todo of this.todos){
+          if((selectedTodo == todo.id) && (todo.status === 'Done'))
+            return true;
+        }
+      }
+    }
+     return false;
+  }
+
   RemoveChecks() {
     let checkbox: any = document.querySelectorAll('input[type=checkbox]');
     for (let i = 0; i < checkbox.length; i++) {

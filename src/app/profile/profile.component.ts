@@ -71,7 +71,7 @@ export class ProfileComponent implements OnInit {
         this.userService.updateUser(this.editProfile.value).subscribe((users) => {
           this.userService.usersChanged.next(users);
           this.isFetching = false;
-          return this.router.navigate(['/todos']);
+          return this.router.navigate(['/todos/todo-list']);
         });
       }
     }
