@@ -6,7 +6,7 @@ import { LoginComponent } from '../login/login.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { TodosComponent } from '../todos/todos.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
-import { AuthGuard } from '../shared/loading-spinner/auth.guard';
+import { AuthGuard } from '../shared/auth.guard';
 import { AddTodoComponent } from '../todos/add-todo/add-todo.component';
 import { TodoListComponent } from '../todos/todo-list/todo-list.component';
 

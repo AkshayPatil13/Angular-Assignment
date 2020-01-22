@@ -26,18 +26,13 @@ export class ProfileComponent implements OnInit {
       if (!loggedInUser) {
         this.router.navigate(['/login']);
       }
-
-      let fistName = loggedInUser.firstName;
-      let lastName = loggedInUser.lastName;
-      let gender = loggedInUser.gender;
-      let address = loggedInUser.address;
       this.imageUrl = loggedInUser.image;
 
       this.editProfile = new FormGroup({
-        'firstName': new FormControl(fistName, Validators.required),
-        'lastName': new FormControl(lastName, Validators.required),
-        'gender': new FormControl(gender, Validators.required),
-        'address': new FormControl(address, Validators.required),
+        'firstName': new FormControl(loggedInUser.firstName, Validators.required),
+        'lastName': new FormControl(loggedInUser.lastName, Validators.required),
+        'gender': new FormControl(loggedInUser.gender, Validators.required),
+        'address': new FormControl(loggedInUser.address, Validators.required),
         'profileImage': new FormControl(null)
       })
     }

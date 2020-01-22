@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component,Input, Output, EventEmitter } from '@angular/core';
 import { Todo } from 'src/app/models/todo.model';
 import { TodoService } from 'src/app/services/todo.service';
 import { Router } from '@angular/router';
@@ -8,13 +8,11 @@ import { Router } from '@angular/router';
   templateUrl: './todo-item.component.html',
   styleUrls: ['./todo-item.component.css']
 })
-export class TodoItemComponent implements OnInit {
+export class TodoItemComponent{
   @Input() todo: Todo;
   @Output() todoSelected = new EventEmitter<any>();
   constructor(private todoService: TodoService,
               private router: Router) { }
-
-  ngOnInit() {}
 
   multiTodoSelected(todoId: string){
     this.todoSelected.emit(todoId);

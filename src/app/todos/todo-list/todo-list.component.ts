@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, Output, EventEmitter } from '@angular/core';
+import { Component,DoCheck} from '@angular/core';
 import { TodoService } from 'src/app/services/todo.service';
 import { Todo } from 'src/app/models/todo.model';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css']
 })
-export class TodoListComponent implements OnInit, DoCheck {
+export class TodoListComponent implements DoCheck {
   todos: Todo[] = [];
   selectedTodos: string[] = [];
   filterStatus: string = '';
@@ -19,8 +19,6 @@ export class TodoListComponent implements OnInit, DoCheck {
 
   constructor(private todoService: TodoService,
               private router: Router) { }
-
-  ngOnInit() { }
 
   ngDoCheck() {
     this.todoService.todosChanged.subscribe((todos: Todo[]) => {

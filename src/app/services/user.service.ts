@@ -4,13 +4,14 @@ import { User } from '../models/user.model';
 import { Subject, BehaviorSubject, throwError } from 'rxjs';
 import { tap, take, exhaustMap, catchError, map } from 'rxjs/operators';
 import { Auth } from '../models/auth.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  apiUrl = 'https://angular-assignment-1fa86.firebaseio.com/';
-  apiKey = 'AIzaSyBlluzYf79hU9yGy_jpETEDpCrJ50oBoGA';
+  apiUrl = environment.firebaseAPIUrl;
+  apiKey = environment.firebaseAPIKey;
   users: User[] = [];
   usersChanged = new Subject<any>();
   userAuth = new BehaviorSubject<Auth>(null);
