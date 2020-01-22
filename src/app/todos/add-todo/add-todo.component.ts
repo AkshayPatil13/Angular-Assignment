@@ -65,7 +65,7 @@ export class AddTodoComponent implements OnInit {
     if (allowInsertion == true) {
       document.getElementById('formError').innerHTML = '';
       this.todoForm.value.isPublic = this.todoForm.value.isPublic === true ? 'Private' : 'Public';
-      this.todoForm.value.description = this.todoForm.value.description === "" ? 'NA' : this.todoForm.value.description;
+      this.todoForm.value.description = this.todoForm.value.description == null ? 'NA' : this.todoForm.value.description;
 
       if(this.editMode){
         this.todoService.updateTodo(this.todoId, {...this.todoForm.value,isPublic: this.todoForm.value.isPublic,description: this.todoForm.value.description});

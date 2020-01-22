@@ -9,13 +9,11 @@
         </select>
     
         <select name="filters" id="filterByStatus" [(ngModel)]="filterStatus">
-            <option value="select" selected>Select</option>
             <option value="Done">Done</option>
             <option value="pending">Pending</option>
         </select>
     
         <select name="filters" id="filterByCategories" [(ngModel)]="filterCategory">
-            <option value="select" selected>Select</option>
             <option value="Home">Home</option>
             <option value="Personal">Personal</option>
             <option value="Office">Office</option>
@@ -57,10 +55,17 @@
         </thead>
 
         <tbody id="todoBody">
-            <tr app-todo-item [todo]="todo"
-                *ngFor="let todo of todos | categoriesFilter:filterCategory | titleFilter:filterString | statusFilter:filterStatus | dateFilter:startDate:dueDate let i=index"
-                (todoSelected)="todoSelected($event)">
-            </tr>
+            <ng-container *ngIf="(todos | categoriesFilter:filterCategory | titleFilter:filterString | statusFilter:filterStatus | dateFilter:startDate:dueDate) as result">
+                    <tr app-todo-item [todo]="todo"
+                        *ngFor="let todo of result; let i=index"
+                        (todoSelected)="todoSelected($event)">
+                    </tr>
+                    <tr *ngIf="result.length === 0">
+                        <td colspan="9">
+                            <img src="../../../assets/images/nodata-found.png" class="no-data" alt="No Data Found">
+                        </td>
+                    </tr>
+            </ng-container>
         </tbody>
     </table>
 </div>

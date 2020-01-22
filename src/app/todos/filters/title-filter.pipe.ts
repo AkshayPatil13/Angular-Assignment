@@ -10,7 +10,6 @@ export class TitleFilterPipe implements PipeTransform {
       return value;
     }
     let resultArray = [];
-    console.log(value);
     for(let item of value){
       if(item['title'].toLowerCase().includes(filterString.toLowerCase())){
         resultArray.push(item);

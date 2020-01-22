@@ -16,7 +16,6 @@ export class TodoListComponent implements OnInit, DoCheck {
   startDate: string = '';
   dueDate: string = '';
   filterString: string = '';
-  @Output() passTodoId = new EventEmitter<string>();
 
   constructor(private todoService: TodoService,
               private router: Router) { }
@@ -49,9 +48,11 @@ export class TodoListComponent implements OnInit, DoCheck {
   }
 
   onDeleteTodo() {
-    this.todoService.deleteTodos(this.selectedTodos);
+    if(confirm("Are you sure you want to delete this item?")){
+      this.todoService.deleteTodos(this.selectedTodos);
+    }
     this.selectedTodos = [];
-
+    this.RemoveChecks();
   }
 
   onStatusChange() {

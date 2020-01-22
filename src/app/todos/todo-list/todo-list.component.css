@@ -146,3 +146,7 @@ button[disabled]{
 .noTodos{
     margin-top: 0;
 } 
+
+.no-data {
+    height: 200px;
+}

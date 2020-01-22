@@ -25,6 +25,8 @@ export class TodoItemComponent implements OnInit {
   }
 
   onDeleteTodo(todoId:string){
-    this.todoService.deleteTodo(todoId);
+    if(confirm("Are you sure you want to delete this item?")){
+      this.todoService.deleteTodo(todoId);
+    }
   }
 }
