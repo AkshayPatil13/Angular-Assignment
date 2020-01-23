@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -10,20 +11,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css']
 })
 
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy{
   signupForm: FormGroup;
   imageUrl: any = '../../assets/images/Profile.png';
   formError: any = false;
   userCreated: boolean = false;
   isFetching: boolean = false;
   buttonText: string = 'Sign Up';
+  userServiceSubscription: Subscription;
 
   constructor(private userService: UserService,
     private router: Router) { }
 
   ngOnInit() {
     this.userService.checkLoggedInUser();
-    this.userService.userAuth.subscribe((userData) => {
+    this.userServiceSubscription = this.userService.userAuth.subscribe((userData) => {
       if (userData) {
         this.router.navigate(['/todos/todo-list']);
       }
@@ -67,16 +69,13 @@ export class SignupComponent implements OnInit {
       this.imageUrl
     );
 
-    this.userService.addUser(newUser).subscribe((responseData) => {
+    let newUserSubscription = this.userService.addUser(newUser).subscribe((responseData) => {
         this.formError = false;
         this.userCreated = true;
         this.userService.userRegistered = this.userCreated;
         this.signupForm.reset();
-        setTimeout(() => {
-          this.isFetching = false;
-          this.router.navigate(['/login']);
-        }, 500);
-
+        this.isFetching = false;
+        this.router.navigate(['/login']);
       }, (error) => {
         this.buttonText = 'Sign Up';
         this.formError = error;
@@ -88,6 +87,11 @@ export class SignupComponent implements OnInit {
         });
       }
     );
+    this.userServiceSubscription.add(newUserSubscription)
+  }
+
+  ngOnDestroy(){
+    this.userServiceSubscription.unsubscribe();
   }
 
 }

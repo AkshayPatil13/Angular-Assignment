@@ -7,9 +7,9 @@ import { Subject } from 'rxjs';
 })
 export class TodoService {
   constructor() { }
-  selectedTodo = new Subject<string>();
   todos: Todo[] = [];
   todosChanged = new Subject<Todo[]>();
+  todoChecked = new Subject<boolean>();
 
   generateId(){
     return '_' + Math.random().toString(36).substr(2, 9)
@@ -38,7 +38,6 @@ export class TodoService {
         }
       }
     }
-   
     this.todosChanged.next(this.todos.slice());
   }
 

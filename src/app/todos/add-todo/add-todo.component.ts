@@ -1,24 +1,27 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TodoService } from 'src/app/services/todo.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-todo',
   templateUrl: './add-todo.component.html',
   styleUrls: ['./add-todo.component.css']
 })
-export class AddTodoComponent implements OnInit {
+export class AddTodoComponent implements OnInit, OnDestroy{
  editMode: boolean = false;
  todoForm: FormGroup;
  todoId: string = '';
+ routeSubscription: Subscription;
+
  constructor(private todoService: TodoService,
              private router: Router,
              private route: ActivatedRoute
             ) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
+    this.routeSubscription= this.route.params.subscribe((params: Params) => {
       this.todoId = params['id'];
       this.editMode =  params['id'] != null;
     });
@@ -112,4 +115,7 @@ export class AddTodoComponent implements OnInit {
     dateInput.setAttribute('min', dateStr);
   }
   
+  ngOnDestroy(){
+    this.routeSubscription.unsubscribe();
+  }
 }

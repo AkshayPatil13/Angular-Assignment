@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -10,12 +11,13 @@ import { User } from '../models/user.model';
   styleUrls: ['./profile.component.css']
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy{
   users: User[] = [];
   isFetching: boolean = false;
   formError: any = false;
   editProfile: FormGroup;
   imageUrl: any = '../../assets/images/Profile.png';
+  userServiceSubscription: Subscription;
 
   constructor(private userService: UserService,
               private router: Router) { }
@@ -35,6 +37,19 @@ export class ProfileComponent implements OnInit {
         'address': new FormControl(loggedInUser.address, Validators.required),
         'profileImage': new FormControl(null)
       })
+    }
+
+    onEditProfile() {
+      let allowEdit = this.validateProfileData();
+      if (allowEdit == true) {
+        this.isFetching = true;
+        this.editProfile.value.profileImage = this.imageUrl;
+        this.userServiceSubscription = this.userService.updateUser(this.editProfile.value).subscribe((users) => {
+          this.userService.usersChanged.next(users);
+          this.isFetching = false;
+          return this.router.navigate(['/todos/todo-list']);
+        });
+      }
     }
 
     UploadProfilePicture(event) {
@@ -58,16 +73,8 @@ export class ProfileComponent implements OnInit {
       return true;
     }
 
-    onEditProfile() {
-      let allowEdit = this.validateProfileData();
-      if (allowEdit == true) {
-        this.isFetching = true;
-        this.editProfile.value.profileImage = this.imageUrl;
-        this.userService.updateUser(this.editProfile.value).subscribe((users) => {
-          this.userService.usersChanged.next(users);
-          this.isFetching = false;
-          return this.router.navigate(['/todos/todo-list']);
-        });
-      }
+    ngOnDestroy(){
+      if(this.userServiceSubscription)
+        this.userServiceSubscription.unsubscribe();
     }
 }

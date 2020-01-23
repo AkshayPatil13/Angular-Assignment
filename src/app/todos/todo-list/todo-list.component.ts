@@ -1,14 +1,15 @@
-import { Component,DoCheck} from '@angular/core';
+import { Component,DoCheck, OnDestroy} from '@angular/core';
 import { TodoService } from 'src/app/services/todo.service';
 import { Todo } from 'src/app/models/todo.model';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css']
 })
-export class TodoListComponent implements DoCheck {
+export class TodoListComponent implements DoCheck, OnDestroy{
   todos: Todo[] = [];
   selectedTodos: string[] = [];
   filterStatus: string = '';
@@ -16,12 +17,15 @@ export class TodoListComponent implements DoCheck {
   startDate: string = '';
   dueDate: string = '';
   filterString: string = '';
+  todoSubscription: Subscription;
+  optionValue: any;
 
   constructor(private todoService: TodoService,
-              private router: Router) { }
+              private router: Router) {
+               }
 
   ngDoCheck() {
-    this.todoService.todosChanged.subscribe((todos: Todo[]) => {
+    this.todoSubscription = this.todoService.todosChanged.subscribe((todos: Todo[]) => {
       this.todos = todos;
     });
     this.todos = this.todoService.getTodos();
@@ -50,7 +54,6 @@ export class TodoListComponent implements DoCheck {
       this.todoService.deleteTodos(this.selectedTodos);
     }
     this.selectedTodos = [];
-    this.RemoveChecks();
   }
 
   onStatusChange() {
@@ -59,11 +62,10 @@ export class TodoListComponent implements DoCheck {
     this.RemoveChecks();
   }
 
-  showAllTodos(){
-    document.getElementById('filterByStatus').style.display = "none";
-    document.getElementById('filterByCategories').style.display = "none"; 
-    document.getElementById('filterByDate').style.display = "none";
-    this.router.navigate(['../']);
+  showAllTodos(value){
+    if(value == 'selectAll'){
+      this.router.navigate(['../']);
+    }
   }
 
   checkConditions(){
@@ -88,29 +90,8 @@ export class TodoListComponent implements DoCheck {
     }
   }
 
-  showFurtherFilters(value) {
-    switch(value){
-      case 'select':
-          this.showAllTodos();
-          break;
-
-      case 'Categories':
-          this.setFilterValues("inline-block", "none", "none");
-          break;
-
-      case 'Status':
-          this.setFilterValues("none", "inline-block", "none");
-          break;
-      
-      case 'Date':
-          this.setFilterValues("none", "none", "inline-block");
-          break;
-    }
-  }
-
-  setFilterValues(category, status, date) {
-    document.getElementById('filterByCategories').style.display = category;
-    document.getElementById('filterByStatus').style.display = status;
-    document.getElementById('filterByDate').style.display = date;
+  ngOnDestroy(){
+    this.todoSubscription.unsubscribe();
   }
 }
+

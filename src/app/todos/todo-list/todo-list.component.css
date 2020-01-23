@@ -98,13 +98,13 @@ thead th , tbody td{
     color: #FFFFFF;
 }
 
-#filterByStatus, #filterByCategories{
+/* #filterByStatus, #filterByCategories{
     display: none;
 }
-
+*/
 .date-filters{
-    display: none;
-}
+    display: inline-block;
+} 
 
 .error{
     width: 100%;

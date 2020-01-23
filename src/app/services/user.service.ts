@@ -144,17 +144,20 @@ export class UserService {
   }
 
   updateUser(updatedInfo) {
-    let index = this.users.findIndex((user) => user.loginStatus == true);
-    this.users[index].firstName = updatedInfo.firstName;
-    this.users[index].lastName = updatedInfo.lastName;
-    this.users[index].gender = updatedInfo.gender;
-    this.users[index].address = updatedInfo.address;
-    this.users[index].image = updatedInfo.profileImage;
-
-    return this.http.put(
-      this.apiUrl + 'users.json',
-      this.users
-    );
+    try{
+      let index = this.users.findIndex((user) => user.loginStatus == true);
+      this.users[index].firstName = updatedInfo.firstName;
+      this.users[index].lastName = updatedInfo.lastName;
+      this.users[index].gender = updatedInfo.gender;
+      this.users[index].address = updatedInfo.address;
+      this.users[index].image = updatedInfo.profileImage;
+  
+      return this.http.put(
+        this.apiUrl + 'users.json',
+        this.users
+      );
+    }
+    catch(e){}
   }
 
 }
