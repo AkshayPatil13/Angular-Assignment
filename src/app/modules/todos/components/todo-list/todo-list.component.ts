@@ -1,15 +1,18 @@
-import { Component,DoCheck, OnDestroy} from '@angular/core';
-import { TodoService } from 'src/app/services/todo.service';
-import { Todo } from 'src/app/models/todo.model';
+import { Component,DoCheck, OnDestroy, OnInit} from '@angular/core';
+import { TodoService } from 'src/app/modules/todos/services/todo.service';
+import { Todo } from 'src/app/modules/todos/models/todo.model';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css']
 })
-export class TodoListComponent implements DoCheck, OnDestroy{
+export class TodoListComponent implements OnInit, DoCheck, OnDestroy{
+  users: User[] = [];
   todos: Todo[] = [];
   selectedTodos: string[] = [];
   filterStatus: string = '';
@@ -21,9 +24,16 @@ export class TodoListComponent implements DoCheck, OnDestroy{
   optionValue: any;
 
   constructor(private todoService: TodoService,
-              private router: Router) {
-               }
+              private userService: UserService,
+              private router: Router) {}
 
+  ngOnInit(){
+    // console.log('Inside Todo-list component..!!');
+    this.userService.getUsers();
+    this.userService.usersChanged.subscribe((users) => {
+        this.users = users;
+      });
+  }     
   ngDoCheck() {
     this.todoSubscription = this.todoService.todosChanged.subscribe((todos: Todo[]) => {
       this.todos = todos;

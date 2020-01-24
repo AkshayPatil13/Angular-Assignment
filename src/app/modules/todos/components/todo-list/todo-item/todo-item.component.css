@@ -33,8 +33,14 @@ input[type="checkbox"]{
     margin-left: 18px;
 }
 
-td i {
+.fa-edit, .fa-trash-alt{
     cursor: pointer;
 }
+.icon-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    
+}
+
 
 

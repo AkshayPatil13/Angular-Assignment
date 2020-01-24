@@ -4,11 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignupComponent } from '../signup/signup.component';
 import { LoginComponent } from '../login/login.component';
 import { ProfileComponent } from '../profile/profile.component';
-import { TodosComponent } from '../todos/todos.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { AuthGuard } from '../shared/auth.guard';
-import { AddTodoComponent } from '../todos/add-todo/add-todo.component';
-import { TodoListComponent } from '../todos/todo-list/todo-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 const appRoutes: Routes = [
@@ -16,17 +14,14 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', canActivate: [AuthGuard], component: ProfileComponent },
-  { path: 'todos', canActivate: [AuthGuard], component: TodosComponent, children: [
-    {path: 'new', component: AddTodoComponent},
-    {path: 'todo-list', component: TodoListComponent},
-    {path: 'todo/:id/edit', component: AddTodoComponent}
-  ]},
+  { path: 'todos', loadChildren: () => import('../modules/todos/todos.module').then(m => m.TodosModule)},
   { path: '**', component: PageNotFoundComponent }
 ];
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   exports: [RouterModule]
